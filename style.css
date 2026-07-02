@@ -78,24 +78,29 @@ button:active { transform: translateY(1px) scale(0.98); }
   font-size: 0.78rem !important;
   opacity: 0.74 !important;
 }
-.audio-hint {
-  margin: 1rem auto 0;
-  max-width: 380px;
-  font-size: 0.92rem !important;
-  opacity: 0.76 !important;
-}
 .star-button {
   width: 132px;
   height: 132px;
   padding: 0;
   border: none;
+  position: relative;
   display: inline-grid;
   place-items: center;
   color: #1c1304;
-  background: radial-gradient(circle at 35% 25%, #fff8ce, #ffd86b 48%, #be7d16 100%);
-  clip-path: polygon(50% 0%, 61% 34%, 98% 35%, 68% 56%, 79% 91%, 50% 70%, 21% 91%, 32% 56%, 2% 35%, 39% 34%);
+  background: transparent;
   filter: drop-shadow(0 0 18px rgba(255,217,106,0.76)) drop-shadow(0 20px 28px rgba(0,0,0,0.42));
   animation: starFade 2.4s ease-in-out infinite;
+}
+.star-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 35% 25%, #fff8ce, #ffd86b 48%, #be7d16 100%);
+  clip-path: polygon(50.00% 2.00%, 53.36% 8.24%, 57.04% 14.16%, 61.04% 19.76%, 65.36% 25.04%, 70.00% 30.00%, 74.96% 34.64%, 80.24% 38.96%, 85.84% 42.96%, 91.76% 46.64%, 98.00% 50.00%, 91.76% 53.36%, 85.84% 57.04%, 80.24% 61.04%, 74.96% 65.36%, 70.00% 70.00%, 65.36% 74.96%, 61.04% 80.24%, 57.04% 85.84%, 53.36% 91.76%, 50.00% 98.00%, 46.64% 91.76%, 42.96% 85.84%, 38.96% 80.24%, 34.64% 74.96%, 30.00% 70.00%, 25.04% 65.36%, 19.76% 61.04%, 14.16% 57.04%, 8.24% 53.36%, 2.00% 50.00%, 8.24% 46.64%, 14.16% 42.96%, 19.76% 38.96%, 25.04% 34.64%, 30.00% 30.00%, 34.64% 25.04%, 38.96% 19.76%, 42.96% 14.16%, 46.64% 8.24%);
+}
+.star-button span {
+  position: relative;
+  z-index: 1;
 }
 .star-button span {
   font-size: 3rem;

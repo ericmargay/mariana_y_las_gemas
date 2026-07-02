@@ -140,7 +140,7 @@ GEMAS.forEach((gema, index) => {
 const container = document.querySelector("#scene-container");
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0b1b17);
-scene.fog = new THREE.FogExp2(0x0b1b17, 0.023);
+scene.fog = new THREE.FogExp2(0x0b1b17, 0.0135);
 
 const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 260);
 camera.position.set(0, 22, 25);
@@ -193,6 +193,12 @@ const matFlower = new THREE.MeshStandardMaterial({ color: 0xffd86b, emissive: 0x
 const matMushroom = new THREE.MeshStandardMaterial({ color: 0xe45757, roughness: 0.72 });
 const matMushroomStem = new THREE.MeshStandardMaterial({ color: 0xf4ddb8, roughness: 0.8 });
 const matCloud = new THREE.MeshStandardMaterial({ color: 0xf7fff6, roughness: 0.95, transparent: true, opacity: 0.72 });
+const matHillNear = new THREE.MeshStandardMaterial({ color: 0x123f2c, roughness: 1, fog: true });
+const matHillFar = new THREE.MeshStandardMaterial({ color: 0x274a49, roughness: 1, fog: true });
+const matCastleStone = new THREE.MeshStandardMaterial({ color: 0x8892a0, roughness: 0.85, fog: true });
+const matCastleStoneDark = new THREE.MeshStandardMaterial({ color: 0x525c6c, roughness: 0.9, fog: true });
+const matCastleRoof = new THREE.MeshStandardMaterial({ color: 0x6a3f52, roughness: 0.75, fog: true });
+const matCastleWindow = new THREE.MeshStandardMaterial({ color: 0xffd98a, emissive: 0xffb648, emissiveIntensity: 1.1, roughness: 0.6, fog: true });
 
 const sparkObjects = [];
 const animalObjects = [];
@@ -206,7 +212,7 @@ ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
 
-const underGround = new THREE.Mesh(new THREE.CircleGeometry(76, 128), matGrassDark);
+const underGround = new THREE.Mesh(new THREE.CircleGeometry(160, 128), matGrassDark);
 underGround.rotation.x = -Math.PI / 2;
 underGround.position.y = -0.07;
 scene.add(underGround);
@@ -223,6 +229,7 @@ createFlowersAndMushrooms();
 createAnimals();
 createClouds();
 createStars();
+createHorizonScenery();
 
 function createPath() {
   const points = GEMAS.map(g => [g.pos[0], g.pos[2]]);
@@ -558,6 +565,75 @@ function createStars() {
   scene.add(stars);
 }
 
+function createHorizonScenery() {
+  // Anillo de colinas onduladas que rellenan el horizonte alrededor de todo el bosque.
+  for (let i = 0; i < 46; i++) {
+    const a = (i / 46) * Math.PI * 2 + rand(i + 6100) * 0.12;
+    const r = 58 + rand(i + 6200) * 34;
+    const x = Math.cos(a) * r;
+    const z = Math.sin(a) * r;
+    const scale = 5 + rand(i + 6300) * 8;
+    const hill = new THREE.Mesh(
+      new THREE.SphereGeometry(scale, 8, 6, 0, Math.PI * 2, 0, Math.PI / 2.1),
+      r > 78 ? matHillFar : matHillNear
+    );
+    hill.position.set(x, -scale * 0.42, z);
+    hill.scale.y = 0.6 + rand(i + 6400) * 0.35;
+    hill.rotation.y = rand(i + 6500) * Math.PI;
+    scene.add(hill);
+  }
+
+  // Castillos lejanos repartidos en los 360 grados del reino.
+  const castleCount = 11;
+  for (let i = 0; i < castleCount; i++) {
+    const a = (i / castleCount) * Math.PI * 2 + rand(i + 7100) * 0.5;
+    const r = 62 + rand(i + 7200) * 26;
+    const x = Math.cos(a) * r;
+    const z = Math.sin(a) * r;
+    createCastleAt(x, z, 0.75 + rand(i + 7300) * 0.7, a + Math.PI, i);
+  }
+}
+
+function createCastleAt(x, z, s, facing, seed) {
+  const castle = new THREE.Group();
+
+  const wall = new THREE.Mesh(new THREE.BoxGeometry(3.2 * s, 2.1 * s, 1.6 * s), matCastleStone);
+  wall.position.y = 1.05 * s;
+  castle.add(wall);
+
+  const towerPositions = [[-1.5, -1.5], [1.5, -1.5], [-1.5, 1.5], [1.5, 1.5]];
+  towerPositions.forEach(([tx, tz], idx) => {
+    const height = (idx < 2 ? 3.6 : 2.6) * s;
+    const tower = new THREE.Mesh(new THREE.CylinderGeometry(0.55 * s, 0.62 * s, height, 8), matCastleStoneDark);
+    tower.position.set(tx * s, height / 2, tz * s);
+    castle.add(tower);
+
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(0.72 * s, 1.1 * s, 8), matCastleRoof);
+    roof.position.set(tx * s, height + 0.55 * s, tz * s);
+    castle.add(roof);
+
+    if (idx % 2 === 0) {
+      const windowPane = new THREE.Mesh(new THREE.PlaneGeometry(0.16 * s, 0.22 * s), matCastleWindow);
+      windowPane.position.set(tx * s, height * 0.62, tz * s + (tz < 0 ? -0.63 * s : 0.63 * s));
+      windowPane.rotation.y = tz < 0 ? Math.PI : 0;
+      castle.add(windowPane);
+    }
+  });
+
+  const keep = new THREE.Mesh(new THREE.CylinderGeometry(0.9 * s, 1.0 * s, 3.0 * s, 8), matCastleStone);
+  keep.position.set(0, 1.5 * s, 0);
+  castle.add(keep);
+
+  const keepRoof = new THREE.Mesh(new THREE.ConeGeometry(1.15 * s, 1.7 * s, 8), matCastleRoof);
+  keepRoof.position.set(0, 3.85 * s, 0);
+  castle.add(keepRoof);
+
+  castle.position.set(x, 0, z);
+  castle.rotation.y = facing + rand(seed + 7400) * 0.6 - 0.3;
+  castle.traverse(obj => { if (obj.isMesh) { obj.castShadow = false; obj.receiveShadow = false; } });
+  scene.add(castle);
+}
+
 // =============================
 // PERSONAJE Y ESTRELLITA
 // =============================
@@ -570,34 +646,137 @@ scene.add(fairyStar);
 
 function createPlayer() {
   const group = new THREE.Group();
-  const matCloak = new THREE.MeshToonMaterial({ color: 0x2aa061 });
-  const matHood = new THREE.MeshToonMaterial({ color: 0x1b6f45 });
   const matSkin = new THREE.MeshToonMaterial({ color: 0xffd7a1 });
-  const matBoots = new THREE.MeshToonMaterial({ color: 0x5e3b24 });
+  const matDress = new THREE.MeshToonMaterial({ color: 0x7a4fa0 });
+  const matDressTrim = new THREE.MeshToonMaterial({ color: 0xffd86b });
+  const matHair = new THREE.MeshToonMaterial({ color: 0x5b3620 });
+  const matCape = new THREE.MeshToonMaterial({ color: 0x1b6f45 });
+  const matEyes = new THREE.MeshToonMaterial({ color: 0x2a1c12 });
+  const matTiara = new THREE.MeshStandardMaterial({ color: 0xffe38a, metalness: 0.65, roughness: 0.25, emissive: 0x553600, emissiveIntensity: 0.4 });
+  const matGem = new THREE.MeshStandardMaterial({ color: 0xff6fa8, emissive: 0xff2f7d, emissiveIntensity: 1.1, roughness: 0.2 });
+  const matBow = new THREE.MeshToonMaterial({ color: 0xfff9e8 });
 
-  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.38, 0.78, 4, 8), matCloak);
-  body.position.y = 0.95;
-  body.castShadow = true;
-  group.add(body);
+  function add(mesh, shadow = true) {
+    if (shadow) mesh.castShadow = true;
+    group.add(mesh);
+    return mesh;
+  }
 
-  const head = new THREE.Mesh(new THREE.SphereGeometry(0.28, 14, 12), matSkin);
-  head.position.y = 1.65;
-  head.castShadow = true;
-  group.add(head);
+  // Zapatillas doradas con pequeño tacón y moño
+  [-1, 1].forEach(side => {
+    const shoe = new THREE.Mesh(new THREE.SphereGeometry(0.13, 10, 8), matDressTrim);
+    shoe.scale.set(1, 0.55, 1.3);
+    shoe.position.set(side * 0.16, 0.09, 0.04);
+    add(shoe);
 
-  const hood = new THREE.Mesh(new THREE.ConeGeometry(0.42, 0.68, 5), matHood);
-  hood.position.set(0, 1.96, -0.03);
-  hood.rotation.x = -0.12;
-  hood.castShadow = true;
-  group.add(hood);
+    const heel = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.07, 0.07), matDressTrim);
+    heel.position.set(side * 0.16, 0.035, -0.1);
+    add(heel);
 
-  const bootL = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.22, 0.34), matBoots);
-  bootL.position.set(-0.18, 0.15, 0.06);
-  bootL.castShadow = true;
-  group.add(bootL);
-  const bootR = bootL.clone();
-  bootR.position.x = 0.18;
-  group.add(bootR);
+    const bow = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), matBow);
+    bow.scale.set(1.7, 0.6, 0.9);
+    bow.position.set(side * 0.16, 0.15, 0.17);
+    add(bow, false);
+  });
+
+  const skirt = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.6, 0.75, 10), matDress);
+  skirt.position.y = 0.58;
+  add(skirt);
+
+  const hemTrim = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.045, 6, 20), matDressTrim);
+  hemTrim.rotation.x = Math.PI / 2;
+  hemTrim.position.y = 0.21;
+  add(hemTrim);
+
+  const sash = new THREE.Mesh(new THREE.TorusGeometry(0.245, 0.04, 6, 16), matDressTrim);
+  sash.rotation.x = Math.PI / 2;
+  sash.position.y = 0.95;
+  add(sash);
+
+  const bodice = new THREE.Mesh(new THREE.CapsuleGeometry(0.19, 0.12, 4, 8), matDress);
+  bodice.position.y = 1.22;
+  add(bodice);
+
+  const collar = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.025, 6, 16), matDressTrim);
+  collar.rotation.x = Math.PI / 2;
+  collar.position.y = 1.46;
+  add(collar);
+
+  [-1, 1].forEach(side => {
+    const sleeve = new THREE.Mesh(new THREE.SphereGeometry(0.15, 10, 8), matDress);
+    sleeve.scale.set(1, 1.15, 1);
+    sleeve.position.set(side * 0.27, 1.4, 0.02);
+    add(sleeve);
+
+    const arm = new THREE.Mesh(new THREE.CapsuleGeometry(0.055, 0.28, 4, 6), matSkin);
+    arm.rotation.z = side * 0.4;
+    arm.position.set(side * 0.32, 1.14, 0.07);
+    add(arm);
+
+    const hand = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), matSkin);
+    hand.position.set(side * 0.37, 0.98, 0.12);
+    add(hand);
+  });
+
+  const cape = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.8, 0.04), matCape);
+  cape.position.set(0, 1.05, -0.22);
+  cape.rotation.x = 0.12;
+  add(cape);
+
+  const clasp = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 8), matDressTrim);
+  clasp.position.set(0, 1.46, -0.14);
+  add(clasp, false);
+
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.11, 0.1, 8), matSkin);
+  neck.position.y = 1.52;
+  add(neck);
+
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.26, 14, 12), matSkin);
+  head.position.y = 1.82;
+  add(head);
+
+  [-1, 1].forEach(side => {
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.032, 8, 8), matEyes);
+    eye.position.set(side * 0.1, 1.83, 0.235);
+    add(eye, false);
+  });
+
+  const hairCap = new THREE.Mesh(new THREE.SphereGeometry(0.3, 12, 10), matHair);
+  hairCap.scale.set(1.05, 0.95, 1.05);
+  hairCap.position.set(0, 1.85, -0.07);
+  add(hairCap);
+
+  const bangs = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.09, 0.1), matHair);
+  bangs.position.set(0, 1.98, 0.2);
+  bangs.rotation.x = -0.25;
+  add(bangs);
+
+  [-1, 1].forEach(side => {
+    const bun = new THREE.Mesh(new THREE.SphereGeometry(0.13, 10, 8), matHair);
+    bun.position.set(side * 0.31, 1.8, 0.03);
+    add(bun);
+  });
+
+  const braid = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.04, 0.5, 6), matHair);
+  braid.position.set(0, 1.55, -0.3);
+  braid.rotation.x = 0.5;
+  add(braid);
+
+  const tiaraBand = new THREE.Mesh(new THREE.TorusGeometry(0.27, 0.022, 6, 20, Math.PI), matTiara);
+  tiaraBand.rotation.x = Math.PI / 2;
+  tiaraBand.rotation.z = Math.PI;
+  tiaraBand.position.set(0, 2.02, 0.03);
+  add(tiaraBand);
+
+  [-0.14, 0, 0.14].forEach((tx, idx) => {
+    const spike = new THREE.Mesh(new THREE.ConeGeometry(0.032, 0.085, 5), matTiara);
+    spike.position.set(tx, idx === 1 ? 2.11 : 2.09, 0.1 + (idx === 1 ? 0.04 : 0));
+    add(spike);
+  });
+
+  const tiaraGem = new THREE.Mesh(new THREE.OctahedronGeometry(0.045, 0), matGem);
+  tiaraGem.position.set(0, 2.09, 0.15);
+  add(tiaraGem, false);
 
   const tinyLight = new THREE.PointLight(0xffd86b, 0.65, 5, 2);
   tinyLight.position.set(0, 1.2, 0);
@@ -691,7 +870,6 @@ const soundGate = document.querySelector("#soundGate");
 const intro = document.querySelector("#intro");
 const hud = document.querySelector("#hud");
 const soundtrack = document.querySelector("#soundtrack");
-const audioHint = document.querySelector("#audioHint");
 const counter = document.querySelector("#counter");
 const zoneName = document.querySelector("#zoneName");
 const zoneText = document.querySelector("#zoneText");
@@ -721,9 +899,8 @@ document.querySelector("#soundStartBtn").addEventListener("click", async () => {
   try {
     soundtrack.volume = 0.72;
     await soundtrack.play();
-    audioHint.textContent = "La música despertó el bosque.";
   } catch (error) {
-    audioHint.textContent = "La aventura puede continuar. Cuando agregues soundtrack.mp3 en la raíz, la música sonará desde esta estrella.";
+    // La aventura continúa igual aunque el navegador bloquee el autoplay.
   }
   soundGate.classList.add("hidden");
   intro.classList.remove("hidden");
@@ -837,11 +1014,30 @@ const keyMap = {
   ArrowLeft: "left", KeyA: "left",
   ArrowRight: "right", KeyD: "right"
 };
-const touchInput = { active: false, pointerId: null, startX: 0, startY: 0, x: 0, z: 0 };
+const touchInput = { active: false, pointerId: null, lastX: 0, lastY: 0 };
+
+// El toque orbita la cámara alrededor del personaje para explorar el bosque
+// sin moverlo. En cuanto se usa un control de movimiento, la cámara vuelve
+// a su posición de seguimiento normal y el personaje camina con ese control.
+let exploring = false;
+let orbitYaw = 0;
+let orbitPitch = 0;
+let orbitYawTarget = 0;
+let orbitPitchTarget = 0;
+const ORBIT_SENSITIVITY = 0.0062;
+const ORBIT_PITCH_MIN = -0.32;
+const ORBIT_PITCH_MAX = 0.55;
+
+function resumeFollowCamera() {
+  exploring = false;
+  orbitYawTarget = 0;
+  orbitPitchTarget = 0;
+}
 
 window.addEventListener("keydown", (e) => {
   if (keyMap[e.code]) {
     keys[keyMap[e.code]] = true;
+    resumeFollowCamera();
     e.preventDefault();
   }
 });
@@ -854,7 +1050,7 @@ window.addEventListener("keyup", (e) => {
 
 document.querySelectorAll("[data-move]").forEach(btn => {
   const dir = btn.dataset.move;
-  const press = (e) => { e.preventDefault(); keys[dir] = true; };
+  const press = (e) => { e.preventDefault(); keys[dir] = true; resumeFollowCamera(); };
   const release = (e) => { e.preventDefault(); keys[dir] = false; };
   btn.addEventListener("pointerdown", press);
   btn.addEventListener("pointerup", release);
@@ -867,20 +1063,21 @@ renderer.domElement.addEventListener("pointerdown", (e) => {
   if (e.pointerType !== "touch" && !window.matchMedia("(pointer: coarse)").matches) return;
   touchInput.active = true;
   touchInput.pointerId = e.pointerId;
-  touchInput.startX = e.clientX;
-  touchInput.startY = e.clientY;
-  touchInput.x = 0;
-  touchInput.z = 0;
+  touchInput.lastX = e.clientX;
+  touchInput.lastY = e.clientY;
+  exploring = true;
   renderer.domElement.setPointerCapture(e.pointerId);
   e.preventDefault();
 });
 
 renderer.domElement.addEventListener("pointermove", (e) => {
   if (!touchInput.active || e.pointerId !== touchInput.pointerId) return;
-  const dx = e.clientX - touchInput.startX;
-  const dy = e.clientY - touchInput.startY;
-  touchInput.x = clamp(dx / 70, -1, 1);
-  touchInput.z = clamp(dy / 70, -1, 1);
+  const dx = e.clientX - touchInput.lastX;
+  const dy = e.clientY - touchInput.lastY;
+  touchInput.lastX = e.clientX;
+  touchInput.lastY = e.clientY;
+  orbitYawTarget -= dx * ORBIT_SENSITIVITY;
+  orbitPitchTarget = clamp(orbitPitchTarget - dy * ORBIT_SENSITIVITY, ORBIT_PITCH_MIN, ORBIT_PITCH_MAX);
   e.preventDefault();
 });
 
@@ -888,8 +1085,6 @@ function endTouchMove(e) {
   if (e.pointerId !== touchInput.pointerId) return;
   touchInput.active = false;
   touchInput.pointerId = null;
-  touchInput.x = 0;
-  touchInput.z = 0;
 }
 renderer.domElement.addEventListener("pointerup", endTouchMove);
 renderer.domElement.addEventListener("pointercancel", endTouchMove);
@@ -898,6 +1093,9 @@ renderer.domElement.addEventListener("pointercancel", endTouchMove);
 // LOOP
 // =============================
 const playerVelocity = new THREE.Vector3();
+const BASE_CAMERA_ANGLE = Math.atan2(16, 11);
+const BASE_CAMERA_RADIUS = Math.hypot(11, 16);
+const BASE_CAMERA_HEIGHT = 17.5;
 
 function animate() {
   requestAnimationFrame(animate);
@@ -918,9 +1116,9 @@ animate();
 
 function updatePlayer(dt) {
   const input = new THREE.Vector3(
-    (keys.right ? 1 : 0) - (keys.left ? 1 : 0) + touchInput.x,
+    (keys.right ? 1 : 0) - (keys.left ? 1 : 0),
     0,
-    (keys.down ? 1 : 0) - (keys.up ? 1 : 0) + touchInput.z
+    (keys.down ? 1 : 0) - (keys.up ? 1 : 0)
   );
 
   if (input.lengthSq() > 0) {
@@ -1032,8 +1230,18 @@ function animateFairy(t) {
 }
 
 function updateCamera(dt) {
+  const orbitEase = 1 - Math.pow(0.0001, dt);
+  orbitYaw += (orbitYawTarget - orbitYaw) * orbitEase;
+  orbitPitch += (orbitPitchTarget - orbitPitch) * orbitEase;
+
   cameraTarget.set(player.position.x, player.position.y + 1.25, player.position.z);
-  const desired = new THREE.Vector3(player.position.x + 11, 17.5, player.position.z + 16);
+
+  const angle = BASE_CAMERA_ANGLE + orbitYaw;
+  const desired = new THREE.Vector3(
+    player.position.x + Math.cos(angle) * BASE_CAMERA_RADIUS,
+    BASE_CAMERA_HEIGHT + orbitPitch * 14,
+    player.position.z + Math.sin(angle) * BASE_CAMERA_RADIUS
+  );
   camera.position.lerp(desired, 1 - Math.pow(0.001, dt));
   camera.lookAt(cameraTarget);
 }
