@@ -4,16 +4,16 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.m
 // PERSONALIZA AQUÍ
 // =============================
 const CONFIG = {
-  sobrina: "mi pequeña aventurera",
+  sobrina: "Marianita",
   firma: "Con todo mi cariño, tu tío",
   soundtrackFile: "soundtrack.mp3",
-  tituloFinal: "Feliz cumpleaños número 9",
+  tituloFinal: "Feliz cumpleaños número 9, Marianita",
   mensajeFinal: [
-    "El secreto final no estaba dentro de una gema ni debajo de una piedra antigua.",
+    "Marianita, el secreto final no estaba dentro de una gema ni debajo de una piedra antigua.",
     "El secreto era que cada gema estaba formando un espejo: la imaginación, la curiosidad, la valentía, la risa, la calma, la bondad, los sueños, la inteligencia y el amor ya viven en ti.",
     "Hoy el reino del bosque no te entregó poderes. Solo te recordó algo que tu tío ya sabía: tú eres una aventura completa, una historia brillante y una persona capaz de iluminar lugares que todavía no conoces.",
     "Que tus 9 años sean el comienzo de una etapa donde preguntes mucho, sueñes fuerte, cuides tu corazón y nunca olvides que ser tú misma es una magia enorme.",
-    "Feliz cumpleaños. El mapa más importante no estaba en la pantalla: está en la forma hermosa en la que vas creciendo."
+    "Feliz cumpleaños, Marianita. El mapa más importante no estaba en la pantalla: está en la forma hermosa en la que vas creciendo."
   ].join("\n\n")
 };
 
@@ -22,11 +22,11 @@ const GEMAS = [
     nombre: "Gema 1 — El primer paso",
     pos: [-21, 0, -18],
     acertijo: {
-      pregunta: "Para comenzar una aventura no necesitas correr. ¿Qué necesitas hacer primero?",
-      visual: "👣  →  ?  →  🌟",
-      opciones: ["Dar un paso", "Cerrar los ojos", "Guardar el mapa"],
-      correcta: 0,
-      pista: "Toda aventura enorme empieza con algo pequeñito."
+      pregunta: "Marianita, cada paso te acerca 2 metros a un cofre que está a 20 metros. Si ya diste 6 pasos, ¿cuántos pasos más te faltan para llegar?",
+      visual: "👣×6  →  🧭  →  ?",
+      opciones: ["3", "4", "5", "8"],
+      correcta: 1,
+      pista: "Primero calcula cuántos metros ya avanzaste (6×2), luego cuántos faltan hasta 20, y por último divide eso entre 2."
     },
     texto: `Hoy cumples 9 años, ${CONFIG.sobrina}. Que nunca te dé miedo comenzar despacio: los pasos pequeños también llevan a lugares maravillosos.`
   },
@@ -34,35 +34,34 @@ const GEMAS = [
     nombre: "Gema 2 — La imaginación",
     pos: [-7, 0, -27],
     acertijo: {
-      pregunta: "Si una semilla sueña con tocar el cielo, ¿en qué puede convertirse con tiempo y cuidado?",
-      visual: "🌱  →  🌿  →  ?",
-      opciones: ["En una estrella", "En un árbol", "En una nube"],
-      correcta: 1,
-      pista: "Crece desde la tierra, pero quiere saludar al sol."
+      pregunta: "Cuento historias sin usar palabras, cambio de forma cada vez que tú lo permites y puedo convertir tu cuarto en un castillo sin mover un solo mueble. ¿Qué soy?",
+      visual: "🛏️  →  ✨  →  🏰",
+      respuestas: ["la imaginacion", "imaginacion", "tu imaginacion", "mi imaginacion"],
+      pista: "Vivo en tu mente antes de existir en el mundo."
     },
-    texto: "Tu imaginación es una llave secreta. Con ella puedes convertir una tarde normal en un castillo, una pregunta en un invento y una idea en un mundo entero."
+    texto: `Tu imaginación es una llave secreta, ${CONFIG.sobrina}. Con ella puedes convertir una tarde normal en un castillo, una pregunta en un invento y una idea en un mundo entero.`
   },
   {
     nombre: "Gema 3 — El número mágico",
     pos: [15, 0, -24],
     acertijo: {
-      pregunta: "El bosque tiene 4 luciérnagas doradas y 5 luciérnagas azules. ¿Cuántas luces bailan en total?",
-      visual: "4 ✦ + 5 ✦ = ?",
-      opciones: ["8", "9", "10"],
+      pregunta: "El bosque tiene 9 gemas. Si duplicas ese número y luego le restas la edad que cumples hoy, ¿qué número queda?",
+      visual: "9 ✦ × 2 − 9 = ?",
+      opciones: ["0", "9", "18"],
       correcta: 1,
-      pista: "Es el mismo número que celebramos hoy."
+      pista: "El resultado es un número que ya conoces muy bien hoy."
     },
-    texto: "Cumplir 9 años es como abrir una puerta nueva: ya sabes muchas cosas, pero todavía tienes un montón de misterios hermosos esperando por ti."
+    texto: `Cumplir 9 años es como abrir una puerta nueva, ${CONFIG.sobrina}: ya sabes muchas cosas, pero todavía tienes un montón de misterios hermosos esperando por ti.`
   },
   {
     nombre: "Gema 4 — La valentía",
     pos: [28, 0, -8],
     acertijo: {
-      pregunta: "¿Qué hace una persona valiente cuando algo le da nervios, pero sabe que vale la pena intentarlo?",
+      pregunta: "Tienes miedo de intentar algo nuevo, pero de verdad quieres lograrlo. ¿Cuál es la opción valiente: esperar a que el miedo desaparezca por completo, o dar el primer paso mientras el miedo todavía está ahí?",
       visual: "😟  +  ❤️  =  ?",
-      opciones: ["Se burla del miedo", "Avanza con cuidado", "Nunca pide ayuda"],
+      opciones: ["Esperar a que el miedo desaparezca", "Dar el primer paso con el miedo presente"],
       correcta: 1,
-      pista: "La valentía no borra el miedo; lo toma de la mano."
+      pista: "La valentía no espera a que el miedo se vaya; camina junto a él."
     },
     texto: "Ser valiente no significa no tener miedo. Significa escuchar tu corazón, respirar profundo y avanzar con cuidado cuando algo importante te llama."
   },
@@ -70,61 +69,60 @@ const GEMAS = [
     nombre: "Gema 5 — La risa escondida",
     pos: [24, 0, 14],
     acertijo: {
-      pregunta: "Estoy en una broma, en una cosquilla y en una tarde feliz. Hago que el mundo pese menos. ¿Qué soy?",
+      pregunta: "Aparezco en una cosquilla, en una broma bien pensada y en una tarde entre amigos, pero desaparezco si finges sentirme. ¿Qué soy?",
       visual: "😂  🌈  🎈",
-      opciones: ["La risa", "La lluvia", "Una llave"],
+      opciones: ["La risa verdadera", "El aburrimiento", "El silencio", "Una sombra"],
       correcta: 0,
-      pista: "A veces aparece tan fuerte que hasta duele la pancita."
+      pista: "No se puede fingir del todo; se nota en los ojos."
     },
-    texto: "Ojalá nunca te falten risas de esas que hacen que todo se sienta más ligero. Tu alegría también puede ser un regalo para quienes caminan contigo."
+    texto: `Ojalá nunca te falten risas de esas que hacen que todo se sienta más ligero, ${CONFIG.sobrina}. Tu alegría también puede ser un regalo para quienes caminan contigo.`
   },
   {
     nombre: "Gema 6 — Las preguntas",
     pos: [6, 0, 29],
     acertijo: {
-      pregunta: "¿Qué palabra abre puertas invisibles cuando quieres entender el mundo?",
-      visual: "¿ ?  ¿ ?  ¿ ?",
-      opciones: ["Porque", "Quizás", "¿Por qué?"],
-      correcta: 2,
-      pista: "Es la frase favorita de quienes descubren cosas nuevas."
+      pregunta: "Empiezo casi siempre con '¿' y termino con '?'. Te ayudo a entender el mundo cuando la curiosidad te da un empujón. ¿Qué soy?",
+      visual: "¿ ...  ?",
+      respuestas: ["una pregunta", "pregunta", "las preguntas"],
+      pista: "Es lo que haces cuando quieres entender más."
     },
-    texto: "Tus preguntas son tesoros. No dejes que nadie apague tu curiosidad: preguntar es una forma inteligente de hacer crecer la luz por dentro."
+    texto: `Tus preguntas son tesoros, ${CONFIG.sobrina}. No dejes que nadie apague tu curiosidad: preguntar es una forma inteligente de hacer crecer la luz por dentro.`
   },
   {
     nombre: "Gema 7 — La bondad",
     pos: [-17, 0, 25],
     acertijo: {
-      pregunta: "¿Qué tesoro se hace más grande cuando lo compartes con alguien más?",
-      visual: "💛  →  💛💛  →  💛💛💛",
-      opciones: ["La bondad", "Una piedra", "Un candado"],
+      pregunta: "Regalo una parte de mí a un amigo triste y, en vez de tener menos, de repente tenemos más los dos. ¿Qué soy?",
+      visual: "💛  →  💛💛",
+      opciones: ["La bondad", "El dinero", "El tiempo"],
       correcta: 0,
-      pista: "No se guarda en bolsillos; se nota en los actos."
+      pista: "No se gasta: se multiplica."
     },
-    texto: "La bondad parece suave, pero es una fuerza gigante. Puede cambiar un día triste, cuidar una amistad y convertir cualquier lugar en un sitio más bonito."
+    texto: `La bondad parece suave, pero es una fuerza gigante, ${CONFIG.sobrina}. Puede cambiar un día triste, cuidar una amistad y convertir cualquier lugar en un sitio más bonito.`
   },
   {
     nombre: "Gema 8 — El patrón secreto",
     pos: [-31, 0, 5],
     acertijo: {
-      pregunta: "Completa la secuencia del bosque: luna, estrella, luna, estrella... ¿qué sigue?",
-      visual: "🌙  ✦  🌙  ✦  ?",
-      opciones: ["🌙", "🌳", "🔥"],
+      pregunta: "Observa con atención: ✦, 🌙🌙, ✦✦✦, 🌙🌙🌙🌙 ... ¿qué sigue?",
+      visual: "✦ · 🌙🌙 · ✦✦✦ · 🌙🌙🌙🌙 · ?",
+      opciones: ["✦✦✦✦✦", "🌙🌙🌙🌙🌙", "✦✦✦✦", "🌙✦🌙✦🌙"],
       correcta: 0,
-      pista: "El patrón repite su propio baile."
+      pista: "Cuenta cuántos símbolos hay en cada grupo: 1, 2, 3, 4... ¿qué sigue después de 4, y de qué símbolo?"
     },
-    texto: "Aprender a mirar con atención es una magia especial. Muchas respuestas aparecen cuando observas despacio, confías en tu mente y te das tiempo."
+    texto: `Aprender a mirar con atención es una magia especial, ${CONFIG.sobrina}. Muchas respuestas aparecen cuando observas despacio, confías en tu mente y te das tiempo.`
   },
   {
     nombre: "Gema 9 — Tu propia luz",
     pos: [0, 0, 0],
     acertijo: {
-      pregunta: "No se compra, no se copia y no necesita parecerse a nadie más. Cuando eres tú misma, brilla. ¿Qué es?",
+      pregunta: "No se compra, no se copia, no necesita parecerse a nadie más, y sigue ahí incluso en los días donde te sientes pequeña. ¿Qué es: una corona prestada o tu propia luz?",
       visual: "🫶  +  ✨  +  tú",
-      opciones: ["Tu propia luz", "Una corona", "Un espejo mágico"],
-      correcta: 0,
-      pista: "Es lo que te hace única, incluso cuando estás en silencio."
+      opciones: ["Una corona prestada", "Tu propia luz"],
+      correcta: 1,
+      pista: "Lo prestado se devuelve; lo tuyo se queda para siempre."
     },
-    texto: "Nunca escondas tu forma de brillar. El mundo no necesita que seas igual a nadie: necesita exactamente esa luz que solo tú puedes traer."
+    texto: `Nunca escondas tu forma de brillar, ${CONFIG.sobrina}. El mundo no necesita que seas igual a nadie: necesita exactamente esa luz que solo tú puedes traer.`
   }
 ];
 
@@ -649,7 +647,7 @@ function createPlayer() {
   const matSkin = new THREE.MeshToonMaterial({ color: 0xffd7a1 });
   const matDress = new THREE.MeshToonMaterial({ color: 0x7a4fa0 });
   const matDressTrim = new THREE.MeshToonMaterial({ color: 0xffd86b });
-  const matHair = new THREE.MeshToonMaterial({ color: 0x5b3620 });
+  const matHair = new THREE.MeshToonMaterial({ color: 0x14110f });
   const matCape = new THREE.MeshToonMaterial({ color: 0x1b6f45 });
   const matEyes = new THREE.MeshToonMaterial({ color: 0x2a1c12 });
   const matTiara = new THREE.MeshStandardMaterial({ color: 0xffe38a, metalness: 0.65, roughness: 0.25, emissive: 0x553600, emissiveIntensity: 0.4 });
@@ -755,11 +753,16 @@ function createPlayer() {
     const bun = new THREE.Mesh(new THREE.SphereGeometry(0.13, 10, 8), matHair);
     bun.position.set(side * 0.31, 1.8, 0.03);
     add(bun);
+
+    const strand = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.03, 0.42, 6), matHair);
+    strand.position.set(side * 0.35, 1.56, 0.02);
+    strand.rotation.z = side * 0.12;
+    add(strand);
   });
 
-  const braid = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.04, 0.5, 6), matHair);
-  braid.position.set(0, 1.55, -0.3);
-  braid.rotation.x = 0.5;
+  const braid = new THREE.Mesh(new THREE.CylinderGeometry(0.085, 0.03, 0.9, 6), matHair);
+  braid.position.set(0, 1.28, -0.34);
+  braid.rotation.x = 0.55;
   add(braid);
 
   const tiaraBand = new THREE.Mesh(new THREE.TorusGeometry(0.27, 0.022, 6, 20, Math.PI), matTiara);
@@ -933,28 +936,73 @@ function openRiddle(group) {
   }
 
   riddleOptions.innerHTML = "";
-  data.acertijo.opciones.forEach((opcion, index) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.textContent = opcion;
-    btn.addEventListener("click", () => checkRiddleAnswer(index));
-    riddleOptions.appendChild(btn);
-  });
+  if (data.acertijo.opciones) {
+    data.acertijo.opciones.forEach((opcion, index) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = opcion;
+      btn.addEventListener("click", () => checkRiddleAnswer(index));
+      riddleOptions.appendChild(btn);
+    });
+  } else {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "riddle-input";
+    input.placeholder = "Escribe tu respuesta";
+    input.autocomplete = "off";
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") checkOpenAnswer(input.value);
+    });
+
+    const submit = document.createElement("button");
+    submit.type = "button";
+    submit.textContent = "Responder";
+    submit.addEventListener("click", () => checkOpenAnswer(input.value));
+
+    riddleOptions.appendChild(input);
+    riddleOptions.appendChild(submit);
+    setTimeout(() => input.focus(), 50);
+  }
 
   riddlePanel.classList.remove("hidden");
+}
+
+function normalizeAnswer(str) {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[¿?¡!.,]/g, "")
+    .trim();
+}
+
+function onRiddleSuccess() {
+  riddleFeedback.textContent = "¡Respuesta correcta! La gema abrió su secreto.";
+  setTimeout(() => {
+    riddlePanel.classList.add("hidden");
+    riddleOpen = false;
+    revealGema(activeGema);
+    activeGema = null;
+  }, 520);
 }
 
 function checkRiddleAnswer(index) {
   if (!activeGema) return;
   const data = activeGema.userData;
   if (index === data.acertijo.correcta) {
-    riddleFeedback.textContent = "¡Respuesta correcta! La gema abrió su secreto.";
-    setTimeout(() => {
-      riddlePanel.classList.add("hidden");
-      riddleOpen = false;
-      revealGema(activeGema);
-      activeGema = null;
-    }, 520);
+    onRiddleSuccess();
+  } else {
+    riddleFeedback.textContent = `Casi. Pista: ${data.acertijo.pista}`;
+  }
+}
+
+function checkOpenAnswer(value) {
+  if (!activeGema) return;
+  const data = activeGema.userData;
+  const normalized = normalizeAnswer(value || "");
+  const accepted = data.acertijo.respuestas.map(normalizeAnswer);
+  if (normalized && accepted.includes(normalized)) {
+    onRiddleSuccess();
   } else {
     riddleFeedback.textContent = `Casi. Pista: ${data.acertijo.pista}`;
   }
@@ -977,12 +1025,13 @@ function revealGema(group) {
   zoneText.textContent = data.texto;
 
   group.children.forEach(child => {
-    if (child.userData.kind === "crystal" && child.material?.emissiveIntensity !== undefined) child.material.emissiveIntensity = 2.8;
+    if (child.userData.kind === "crystal") child.visible = false;
     if (child.userData.kind === "marker" && child.material?.opacity !== undefined) child.material.opacity = 0.82;
     if (child.userData.kind === "glow" && child.material?.opacity !== undefined) child.material.opacity = 0.24;
   });
 
-  burstParticles(group.position, data.color);
+  createShardCluster(group, data.color);
+  fireworkBurst(group.position, data.color);
 
   if (discoveredCount === GEMAS.length && !finalShown) {
     finalShown = true;
@@ -990,15 +1039,62 @@ function revealGema(group) {
   }
 }
 
-function burstParticles(origin, color) {
-  for (let i = 0; i < 24; i++) {
+function createShardCluster(group, color) {
+  const shardMat = new THREE.MeshStandardMaterial({
+    color,
+    emissive: color,
+    emissiveIntensity: 1.7,
+    roughness: 0.15,
+    metalness: 0.05,
+    transparent: true,
+    opacity: 0.95
+  });
+  const baseSeed = group.userData.index * 97;
+  for (let i = 0; i < 7; i++) {
+    const shard = new THREE.Mesh(new THREE.OctahedronGeometry(0.12 + rand(baseSeed + i) * 0.13, 0), shardMat);
+    const a = (i / 7) * Math.PI * 2 + rand(baseSeed + i + 40) * 0.7;
+    const r = 0.4 + rand(baseSeed + i + 50) * 0.6;
+    shard.position.set(Math.cos(a) * r, 0.75 + rand(baseSeed + i + 60) * 0.9, Math.sin(a) * r);
+    shard.rotation.set(rand(baseSeed + i), rand(baseSeed + i + 1), rand(baseSeed + i + 2));
+    shard.userData.kind = "shard";
+    shard.userData.spin = 0.3 + rand(baseSeed + i + 70) * 0.6;
+    shard.castShadow = true;
+    group.add(shard);
+  }
+}
+
+function spawnTrailSpark() {
+  const seed = performance.now();
+  const spark = new THREE.Mesh(
+    new THREE.SphereGeometry(0.04 + rand(seed) * 0.03, 6, 6),
+    new THREE.MeshBasicMaterial({ color: 0xffe38a, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
+  );
+  spark.position.set(
+    player.position.x + (rand(seed + 1) - 0.5) * 0.35,
+    0.1 + rand(seed + 2) * 0.15,
+    player.position.z + (rand(seed + 3) - 0.5) * 0.35
+  );
+  spark.userData.velocity = new THREE.Vector3(0, 0.3, 0);
+  spark.userData.life = 0.55;
+  sparkObjects.push(spark);
+  scene.add(spark);
+}
+
+function fireworkBurst(origin, color) {
+  burstParticles(origin, color, 30, 1.3);
+  setTimeout(() => burstParticles(origin, 0xfff4d6, 20, 1.0), 150);
+  setTimeout(() => burstParticles(origin, color, 24, 1.15), 320);
+}
+
+function burstParticles(origin, color, count = 24, life = 1.15) {
+  for (let i = 0; i < count; i++) {
     const spark = new THREE.Mesh(
       new THREE.SphereGeometry(0.045, 8, 8),
       new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 1, blending: THREE.AdditiveBlending })
     );
     spark.position.copy(origin).add(new THREE.Vector3(0, 1.3, 0));
-    spark.userData.velocity = new THREE.Vector3((rand(i + performance.now()) - 0.5) * 3.4, 1 + rand(i + 3) * 2.2, (rand(i + 4) - 0.5) * 3.4);
-    spark.userData.life = 1.15;
+    spark.userData.velocity = new THREE.Vector3((rand(i + performance.now()) - 0.5) * 4.2, 1.4 + rand(i + 3) * 2.8, (rand(i + 4) - 0.5) * 4.2);
+    spark.userData.life = life;
     sparkObjects.push(spark);
     scene.add(spark);
   }
@@ -1016,22 +1112,36 @@ const keyMap = {
 };
 const touchInput = { active: false, pointerId: null, lastX: 0, lastY: 0 };
 
-// El toque orbita la cámara alrededor del personaje para explorar el bosque
-// sin moverlo. En cuanto se usa un control de movimiento, la cámara vuelve
-// a su posición de seguimiento normal y el personaje camina con ese control.
+// Un dedo orbita la cámara alrededor del personaje para explorar el bosque
+// sin moverlo, y dos dedos hacen un zoom aéreo (pellizcar para ver el bosque
+// desde más arriba). En cuanto se usa un control de movimiento, la cámara
+// vuelve a su posición de seguimiento normal y el personaje camina con ese control.
+const activeTouches = new Map();
+let pinchDistance = null;
 let exploring = false;
 let orbitYaw = 0;
 let orbitPitch = 0;
 let orbitYawTarget = 0;
 let orbitPitchTarget = 0;
+let aerialZoom = 0;
+let aerialZoomTarget = 0;
 const ORBIT_SENSITIVITY = 0.0062;
 const ORBIT_PITCH_MIN = -0.32;
 const ORBIT_PITCH_MAX = 0.55;
+const PINCH_SENSITIVITY = 0.0035;
+const AERIAL_ZOOM_MAX = 1;
 
 function resumeFollowCamera() {
   exploring = false;
   orbitYawTarget = 0;
   orbitPitchTarget = 0;
+  aerialZoomTarget = 0;
+}
+
+function touchPointDistance() {
+  const points = [...activeTouches.values()];
+  if (points.length < 2) return null;
+  return Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
 }
 
 window.addEventListener("keydown", (e) => {
@@ -1061,30 +1171,58 @@ document.querySelectorAll("[data-move]").forEach(btn => {
 renderer.domElement.addEventListener("pointerdown", (e) => {
   if (!started || riddleOpen) return;
   if (e.pointerType !== "touch" && !window.matchMedia("(pointer: coarse)").matches) return;
-  touchInput.active = true;
-  touchInput.pointerId = e.pointerId;
-  touchInput.lastX = e.clientX;
-  touchInput.lastY = e.clientY;
-  exploring = true;
+  activeTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
   renderer.domElement.setPointerCapture(e.pointerId);
+  exploring = true;
+
+  if (activeTouches.size >= 2) {
+    touchInput.active = false;
+    pinchDistance = touchPointDistance();
+  } else {
+    touchInput.active = true;
+    touchInput.pointerId = e.pointerId;
+    touchInput.lastX = e.clientX;
+    touchInput.lastY = e.clientY;
+  }
   e.preventDefault();
 });
 
 renderer.domElement.addEventListener("pointermove", (e) => {
-  if (!touchInput.active || e.pointerId !== touchInput.pointerId) return;
-  const dx = e.clientX - touchInput.lastX;
-  const dy = e.clientY - touchInput.lastY;
-  touchInput.lastX = e.clientX;
-  touchInput.lastY = e.clientY;
-  orbitYawTarget -= dx * ORBIT_SENSITIVITY;
-  orbitPitchTarget = clamp(orbitPitchTarget - dy * ORBIT_SENSITIVITY, ORBIT_PITCH_MIN, ORBIT_PITCH_MAX);
+  if (!activeTouches.has(e.pointerId)) return;
+  activeTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+  if (activeTouches.size >= 2) {
+    const distance = touchPointDistance();
+    if (pinchDistance !== null && distance !== null) {
+      const delta = distance - pinchDistance;
+      aerialZoomTarget = clamp(aerialZoomTarget - delta * PINCH_SENSITIVITY, 0, AERIAL_ZOOM_MAX);
+    }
+    pinchDistance = distance;
+  } else if (touchInput.active && e.pointerId === touchInput.pointerId) {
+    const dx = e.clientX - touchInput.lastX;
+    const dy = e.clientY - touchInput.lastY;
+    touchInput.lastX = e.clientX;
+    touchInput.lastY = e.clientY;
+    orbitYawTarget -= dx * ORBIT_SENSITIVITY;
+    orbitPitchTarget = clamp(orbitPitchTarget - dy * ORBIT_SENSITIVITY, ORBIT_PITCH_MIN, ORBIT_PITCH_MAX);
+  }
   e.preventDefault();
 });
 
 function endTouchMove(e) {
-  if (e.pointerId !== touchInput.pointerId) return;
-  touchInput.active = false;
-  touchInput.pointerId = null;
+  activeTouches.delete(e.pointerId);
+  if (touchInput.pointerId === e.pointerId) {
+    touchInput.active = false;
+    touchInput.pointerId = null;
+  }
+  if (activeTouches.size < 2) pinchDistance = null;
+  if (activeTouches.size === 1) {
+    const [[id, pos]] = activeTouches;
+    touchInput.active = true;
+    touchInput.pointerId = id;
+    touchInput.lastX = pos.x;
+    touchInput.lastY = pos.y;
+  }
 }
 renderer.domElement.addEventListener("pointerup", endTouchMove);
 renderer.domElement.addEventListener("pointercancel", endTouchMove);
@@ -1093,6 +1231,7 @@ renderer.domElement.addEventListener("pointercancel", endTouchMove);
 // LOOP
 // =============================
 const playerVelocity = new THREE.Vector3();
+let trailTimer = 0;
 const BASE_CAMERA_ANGLE = Math.atan2(16, 11);
 const BASE_CAMERA_RADIUS = Math.hypot(11, 16);
 const BASE_CAMERA_HEIGHT = 17.5;
@@ -1135,6 +1274,12 @@ function updatePlayer(dt) {
   if (player.position.length() > maxRadius) player.position.setLength(maxRadius);
   player.position.y = 0;
 
+  trailTimer -= dt;
+  if (playerVelocity.lengthSq() > 1 && trailTimer <= 0) {
+    spawnTrailSpark();
+    trailTimer = 0.055;
+  }
+
   gemaObjects.forEach(group => {
     if (group.userData.discovered) return;
     const distance = tmp.copy(group.position).sub(player.position).length();
@@ -1151,11 +1296,11 @@ function animateGemas(t, dt) {
     const pulse = 0.5 + Math.sin(t * 1.65 + i * 0.83) * 0.5;
     const discovered = group.userData.discovered;
 
-    if (crystal) {
+    if (crystal && crystal.visible) {
       crystal.rotation.y += dt * (1.05 + i * 0.045);
       crystal.rotation.x = Math.sin(t * 0.8 + i) * 0.08;
       crystal.position.y = crystal.userData.originalY + Math.sin(t * 1.7 + i) * 0.16;
-      crystal.material.emissiveIntensity = discovered ? 2.8 + pulse * 0.35 : 1.05 + pulse * 0.95;
+      crystal.material.emissiveIntensity = 1.05 + pulse * 0.95;
     }
     if (marker) {
       marker.rotation.z += dt * 0.72 * marker.userData.spin;
@@ -1169,6 +1314,11 @@ function animateGemas(t, dt) {
     if (light) {
       light.intensity = discovered ? 3.3 + pulse * 0.8 : 1.0 + pulse * 2.1;
       light.distance = discovered ? 11.5 : 8.5 + pulse * 3;
+    }
+    if (discovered) {
+      group.children.forEach(child => {
+        if (child.userData.kind === "shard") child.rotation.y += dt * child.userData.spin;
+      });
     }
   });
 }
@@ -1233,14 +1383,17 @@ function updateCamera(dt) {
   const orbitEase = 1 - Math.pow(0.0001, dt);
   orbitYaw += (orbitYawTarget - orbitYaw) * orbitEase;
   orbitPitch += (orbitPitchTarget - orbitPitch) * orbitEase;
+  aerialZoom += (aerialZoomTarget - aerialZoom) * orbitEase;
 
   cameraTarget.set(player.position.x, player.position.y + 1.25, player.position.z);
 
   const angle = BASE_CAMERA_ANGLE + orbitYaw;
+  const radius = BASE_CAMERA_RADIUS * (1 + aerialZoom * 1.6);
+  const height = BASE_CAMERA_HEIGHT + orbitPitch * 14 + aerialZoom * 42;
   const desired = new THREE.Vector3(
-    player.position.x + Math.cos(angle) * BASE_CAMERA_RADIUS,
-    BASE_CAMERA_HEIGHT + orbitPitch * 14,
-    player.position.z + Math.sin(angle) * BASE_CAMERA_RADIUS
+    player.position.x + Math.cos(angle) * radius,
+    height,
+    player.position.z + Math.sin(angle) * radius
   );
   camera.position.lerp(desired, 1 - Math.pow(0.001, dt));
   camera.lookAt(cameraTarget);

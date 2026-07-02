@@ -216,6 +216,18 @@ button:active { transform: translateY(1px) scale(0.98); }
   border-radius: 18px;
   padding: 0.74rem 0.9rem;
 }
+.riddle-input {
+  width: 100%;
+  border-radius: 18px;
+  padding: 0.74rem 0.9rem;
+  border: 1px solid rgba(255,217,106,0.4);
+  background: rgba(255,255,255,0.08);
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+}
+.riddle-input::placeholder { color: rgba(255,249,232,0.5); }
+.riddle-input:focus { border-color: var(--gold); }
 .riddle-feedback {
   min-height: 1.4rem;
   margin: 0.45rem 0 0.75rem !important;
@@ -252,7 +264,7 @@ button:active { transform: translateY(1px) scale(0.98); }
   position: fixed;
   right: max(10px, env(safe-area-inset-right));
   bottom: max(18px, calc(env(safe-area-inset-bottom) + 12px));
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.26rem;
