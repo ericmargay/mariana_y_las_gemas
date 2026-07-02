@@ -3,49 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>La Aventura de los 9 Faroles</title>
+  <title>La aventura de las gemas</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="scene-container" aria-label="Escenario 3D interactivo"></div>
+  <audio id="soundtrack" src="soundtrack.mp3" preload="auto" loop></audio>
 
-  <section id="intro" class="overlay-card">
-    <div class="crest">✦</div>
-    <h1>La Aventura de los 9 Faroles</h1>
+  <section id="soundGate" class="overlay-card gate-card">
+    <p class="tiny-label">Toca la estrella para despertar el pequeño reino</p>
+    <button id="soundStartBtn" class="star-button" aria-label="Comenzar música y abrir la aventura">
+      <span>✦</span>
+    </button>
+    <p id="audioHint" class="audio-hint">Coloca tu soundtrack como <strong>soundtrack.mp3</strong> en la raíz del proyecto.</p>
+  </section>
+
+  <section id="intro" class="overlay-card hidden">
+    <div class="crest glow-star">✦</div>
+    <h1>La aventura de las gemas</h1>
     <p>
-      Una felicitación escondida en un pequeño reino de bosque, ruinas y luz.
-      Camina, explora y descubre cada farol para revelar el mensaje completo.
+      Existen historias escondidas en el pequeño reino del bosque.
+      Solo aquellas personas que tienen los 9 años serán capaces de encontrar las respuestas.
     </p>
-    <button id="startBtn">Entrar al reino</button>
+    <button id="startBtn">Entrar al bosque</button>
   </section>
 
   <main id="hud" class="hidden">
     <div class="topbar">
       <div>
-        <strong>Faroles encontrados</strong>
+        <strong>Gemas encontradas</strong>
         <span id="counter">0 / 9</span>
       </div>
       <button id="helpBtn" aria-label="Mostrar ayuda">?</button>
     </div>
 
     <aside id="messageBox" class="message-box">
-      <span id="zoneName">Busca el primer farol</span>
-      <p id="zoneText">Usa WASD, flechas o los botones de pantalla para caminar.</p>
+      <span class="box-star" aria-hidden="true">✦</span>
+      <div>
+        <span id="zoneName">Busca la primera gema</span>
+        <p id="zoneText">Camina con WASD, flechas, botones o arrastrando el dedo sobre la pantalla.</p>
+      </div>
     </aside>
 
+    <section id="riddlePanel" class="overlay-card riddle-card hidden" aria-live="polite">
+      <div class="crest glow-star">✦</div>
+      <h2 id="riddleTitle">Acertijo de la gema</h2>
+      <p id="riddleQuestion"></p>
+      <div id="riddleVisual" class="riddle-visual hidden"></div>
+      <div id="riddleOptions" class="riddle-options"></div>
+      <p id="riddleFeedback" class="riddle-feedback"></p>
+      <button id="leaveRiddle" class="secondary-btn">Volver a explorar</button>
+    </section>
+
     <section id="finalCard" class="final-card hidden">
-      <div class="crest">✦</div>
-      <h2>Mensaje completo desbloqueado</h2>
+      <div class="crest glow-star">✦</div>
+      <h2>El secreto de las 9 gemas</h2>
       <p id="fullMessage"></p>
       <button id="closeFinal">Seguir explorando</button>
     </section>
 
     <div id="mobileControls" aria-label="Controles táctiles">
-      <button data-move="up">▲</button>
+      <button data-move="up" aria-label="Mover arriba">▲</button>
       <div>
-        <button data-move="left">◀</button>
-        <button data-move="down">▼</button>
-        <button data-move="right">▶</button>
+        <button data-move="left" aria-label="Mover izquierda">◀</button>
+        <button data-move="down" aria-label="Mover abajo">▼</button>
+        <button data-move="right" aria-label="Mover derecha">▶</button>
       </div>
     </div>
   </main>
@@ -53,10 +75,13 @@
   <section id="helpPanel" class="overlay-card small hidden">
     <h2>Cómo jugar</h2>
     <p>
-      Recorre el mapa y acércate a los faroles brillantes. Cada farol guarda una parte
-      de la felicitación. Cuando encuentres los 9, se abrirá el mensaje final.
+      Recorre el mapa y busca las gemas escondidas detrás de árboles, ruinas y caminos.
+      La luz que respira lentamente te dará pistas de dónde están.
     </p>
-    <p><strong>PC:</strong> WASD o flechas. <strong>Móvil:</strong> botones de pantalla.</p>
+    <p>
+      Cada gema tiene un acertijo. Cuando lo resuelvas, desbloquearás un mensaje de cumpleaños.
+    </p>
+    <p><strong>PC:</strong> WASD o flechas. <strong>Móvil:</strong> arrastra el dedo sobre la escena o usa los botones pequeños.</p>
     <button id="hideHelp">Entendido</button>
   </section>
 
