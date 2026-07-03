@@ -7,12 +7,13 @@ const CONFIG = {
   sobrina: "Marianita",
   firma: "Con todo mi cariño, tu tío",
   soundtrackFile: "soundtrack.mp3",
-  tituloFinal: "Feliz cumpleaños número 9, Marianita",
+  gemSoundFiles: ["gema1.mp3", "gema2.mp3", "gema3.mp3", "gema4.mp3"],
+  tituloFinal: "Feliz cumpleaños número 11, Marianita",
   mensajeFinal: [
     "Marianita, el secreto final no estaba dentro de una gema ni debajo de una piedra antigua.",
-    "El secreto era que cada gema estaba formando un espejo: la imaginación, la curiosidad, la valentía, la risa, la calma, la bondad, los sueños, la inteligencia y el amor ya viven en ti.",
+    "El secreto era que cada gema estaba formando un espejo: la imaginación, la curiosidad, la valentía, la risa, la calma, la gratitud, la bondad, los sueños, la inteligencia, la perseverancia y el amor ya viven en ti.",
     "Hoy el reino del bosque no te entregó poderes. Solo te recordó algo que tu tío ya sabía: tú eres una aventura completa, una historia brillante y una persona capaz de iluminar lugares que todavía no conoces.",
-    "Que tus 9 años sean el comienzo de una etapa donde preguntes mucho, sueñes fuerte, cuides tu corazón y nunca olvides que ser tú misma es una magia enorme.",
+    "Que tus 11 años sean el comienzo de una etapa donde preguntes mucho, sueñes fuerte, cuides tu corazón y nunca olvides que ser tú misma es una magia enorme.",
     "Feliz cumpleaños, Marianita. El mapa más importante no estaba en la pantalla: está en la forma hermosa en la que vas creciendo."
   ].join("\n\n")
 };
@@ -28,7 +29,7 @@ const GEMAS = [
       correcta: 1,
       pista: "Primero calcula cuántos metros ya avanzaste (6×2), luego cuántos faltan hasta 20, y por último divide eso entre 2."
     },
-    texto: `Hoy cumples 9 años, ${CONFIG.sobrina}. Que nunca te dé miedo comenzar despacio: los pasos pequeños también llevan a lugares maravillosos.`
+    texto: `Hoy cumples 11 años, ${CONFIG.sobrina}. Que nunca te dé miedo comenzar despacio: los pasos pequeños también llevan a lugares maravillosos.`
   },
   {
     nombre: "Gema 2 — La imaginación",
@@ -45,13 +46,13 @@ const GEMAS = [
     nombre: "Gema 3 — El número mágico",
     pos: [15, 0, -24],
     acertijo: {
-      pregunta: "El bosque tiene 9 gemas. Si duplicas ese número y luego le restas la edad que cumples hoy, ¿qué número queda?",
-      visual: "9 ✦ × 2 − 9 = ?",
-      opciones: ["0", "9", "18"],
+      pregunta: "El bosque tiene 11 gemas. Si duplicas ese número y luego le restas la edad que cumples hoy, ¿qué número queda?",
+      visual: "11 ✦ × 2 − 11 = ?",
+      opciones: ["0", "11", "22"],
       correcta: 1,
       pista: "El resultado es un número que ya conoces muy bien hoy."
     },
-    texto: `Cumplir 9 años es como abrir una puerta nueva, ${CONFIG.sobrina}: ya sabes muchas cosas, pero todavía tienes un montón de misterios hermosos esperando por ti.`
+    texto: `Cumplir 11 años es como abrir una puerta nueva, ${CONFIG.sobrina}: ya sabes muchas cosas, pero todavía tienes un montón de misterios hermosos esperando por ti.`
   },
   {
     nombre: "Gema 4 — La valentía",
@@ -66,7 +67,19 @@ const GEMAS = [
     texto: "Ser valiente no significa no tener miedo. Significa escuchar tu corazón, respirar profundo y avanzar con cuidado cuando algo importante te llama."
   },
   {
-    nombre: "Gema 5 — La risa escondida",
+    nombre: "Gema 5 — La gratitud",
+    pos: [29, 0, 4],
+    acertijo: {
+      pregunta: "Cuando digo 'gracias' de corazón, algo invisible crece entre nosotros y nos hace sentir más cerca. Aparezco cuando notas lo bueno que ya tienes, no lo que falta. ¿Qué soy?",
+      visual: "🙏  →  💛  →  ?",
+      opciones: ["La gratitud", "El silencio", "La prisa"],
+      correcta: 0,
+      pista: "No se trata de tener más, sino de notar lo que ya tienes."
+    },
+    texto: `La gratitud es un tesoro silencioso, ${CONFIG.sobrina}. Cuando aprendes a valorar lo que ya tienes, hasta los días comunes empiezan a brillar.`
+  },
+  {
+    nombre: "Gema 6 — La risa escondida",
     pos: [24, 0, 14],
     acertijo: {
       pregunta: "Aparezco en una cosquilla, en una broma bien pensada y en una tarde entre amigos, pero desaparezco si finges sentirme. ¿Qué soy?",
@@ -78,7 +91,7 @@ const GEMAS = [
     texto: `Ojalá nunca te falten risas de esas que hacen que todo se sienta más ligero, ${CONFIG.sobrina}. Tu alegría también puede ser un regalo para quienes caminan contigo.`
   },
   {
-    nombre: "Gema 6 — Las preguntas",
+    nombre: "Gema 7 — Las preguntas",
     pos: [6, 0, 29],
     acertijo: {
       pregunta: "Empiezo casi siempre con '¿' y termino con '?'. Te ayudo a entender el mundo cuando la curiosidad te da un empujón. ¿Qué soy?",
@@ -89,7 +102,7 @@ const GEMAS = [
     texto: `Tus preguntas son tesoros, ${CONFIG.sobrina}. No dejes que nadie apague tu curiosidad: preguntar es una forma inteligente de hacer crecer la luz por dentro.`
   },
   {
-    nombre: "Gema 7 — La bondad",
+    nombre: "Gema 8 — La bondad",
     pos: [-17, 0, 25],
     acertijo: {
       pregunta: "Regalo una parte de mí a un amigo triste y, en vez de tener menos, de repente tenemos más los dos. ¿Qué soy?",
@@ -101,7 +114,7 @@ const GEMAS = [
     texto: `La bondad parece suave, pero es una fuerza gigante, ${CONFIG.sobrina}. Puede cambiar un día triste, cuidar una amistad y convertir cualquier lugar en un sitio más bonito.`
   },
   {
-    nombre: "Gema 8 — El patrón secreto",
+    nombre: "Gema 9 — El patrón secreto",
     pos: [-31, 0, 5],
     acertijo: {
       pregunta: "Observa con atención: ✦, 🌙🌙, ✦✦✦, 🌙🌙🌙🌙 ... ¿qué sigue?",
@@ -113,7 +126,19 @@ const GEMAS = [
     texto: `Aprender a mirar con atención es una magia especial, ${CONFIG.sobrina}. Muchas respuestas aparecen cuando observas despacio, confías en tu mente y te das tiempo.`
   },
   {
-    nombre: "Gema 9 — Tu propia luz",
+    nombre: "Gema 10 — La perseverancia",
+    pos: [-31, 0, -5],
+    acertijo: {
+      pregunta: "Si practicas una habilidad 3 minutos cada día durante 11 días, ¿cuántos minutos habrás practicado en total?",
+      visual: "3 × 11 = ?",
+      opciones: ["22", "33", "44", "31"],
+      correcta: 1,
+      pista: "Multiplica los minutos diarios por la cantidad de días."
+    },
+    texto: `La perseverancia es seguir intentando aunque el camino sea largo, ${CONFIG.sobrina}. Practicar un poquito cada día te lleva más lejos de lo que imaginas.`
+  },
+  {
+    nombre: "Gema 11 — Tu propia luz",
     pos: [0, 0, 0],
     acertijo: {
       pregunta: "No se compra, no se copia, no necesita parecerse a nadie más, y sigue ahí incluso en los días donde te sientes pequeña. ¿Qué es: una corona prestada o tu propia luz?",
@@ -152,6 +177,119 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.04;
 container.appendChild(renderer.domElement);
+
+// =============================
+// ESTRELLA 3D DE INICIO
+// =============================
+let starGateRAF = null;
+const starCanvas = document.querySelector("#starCanvas");
+if (starCanvas) {
+  const starScene = new THREE.Scene();
+  const starCamera = new THREE.PerspectiveCamera(38, 1, 0.1, 10);
+  starCamera.position.set(0, 0, 2.5);
+
+  const starRenderer = new THREE.WebGLRenderer({ canvas: starCanvas, alpha: true, antialias: true });
+  starRenderer.setSize(220, 220, false);
+  starRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  starRenderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  starScene.add(new THREE.HemisphereLight(0xfff6d8, 0x241407, 1.3));
+  const starKey = new THREE.PointLight(0xffe9b0, 2.4, 8, 2);
+  starKey.position.set(1.2, 1.4, 1.6);
+  starScene.add(starKey);
+  const starRim = new THREE.PointLight(0x8fd6ff, 0.9, 8, 2);
+  starRim.position.set(-1.3, -0.8, 1.0);
+  starScene.add(starRim);
+
+  const starShape = new THREE.Shape();
+  const starTips = [[0, 0.5], [0.5, 0], [0, -0.5], [-0.5, 0]];
+  const starCtrls = [[0.17, 0.17], [0.17, -0.17], [-0.17, -0.17], [-0.17, 0.17]];
+  starShape.moveTo(starTips[0][0], starTips[0][1]);
+  for (let i = 0; i < 4; i++) {
+    const c = starCtrls[i];
+    const next = starTips[(i + 1) % 4];
+    starShape.quadraticCurveTo(c[0], c[1], next[0], next[1]);
+  }
+
+  const starGeo = new THREE.ExtrudeGeometry(starShape, {
+    depth: 0.16,
+    bevelEnabled: true,
+    bevelThickness: 0.035,
+    bevelSize: 0.03,
+    bevelSegments: 3,
+    curveSegments: 14
+  });
+  starGeo.center();
+  const starMat = new THREE.MeshStandardMaterial({
+    color: 0xffd86b,
+    emissive: 0xffb648,
+    emissiveIntensity: 0.55,
+    metalness: 0.55,
+    roughness: 0.28
+  });
+  const starMesh = new THREE.Mesh(starGeo, starMat);
+  starScene.add(starMesh);
+
+  const starHaloInner = new THREE.Mesh(
+    new THREE.CircleGeometry(0.75, 32),
+    new THREE.MeshBasicMaterial({ color: 0xffd96a, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false })
+  );
+  starHaloInner.position.z = -0.2;
+  starScene.add(starHaloInner);
+
+  const starHaloOuter = new THREE.Mesh(
+    new THREE.CircleGeometry(1.15, 32),
+    new THREE.MeshBasicMaterial({ color: 0xffe9ad, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending, depthWrite: false })
+  );
+  starHaloOuter.position.z = -0.3;
+  starScene.add(starHaloOuter);
+
+  const starSparkles = [];
+  for (let i = 0; i < 12; i++) {
+    const sparkle = new THREE.Mesh(
+      new THREE.SphereGeometry(0.02 + Math.random() * 0.022, 6, 6),
+      new THREE.MeshBasicMaterial({ color: 0xfff6da, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    sparkle.userData = {
+      angle: Math.random() * Math.PI * 2,
+      radius: 0.55 + Math.random() * 0.4,
+      speed: 0.35 + Math.random() * 0.55,
+      tilt: (Math.random() - 0.5) * 0.6,
+      phase: Math.random() * 10
+    };
+    starScene.add(sparkle);
+    starSparkles.push(sparkle);
+  }
+
+  const animateStarGate = (time) => {
+    starGateRAF = requestAnimationFrame(animateStarGate);
+    const t = time * 0.001;
+    starMesh.rotation.y = t * 0.55;
+    starMesh.rotation.x = Math.sin(t * 0.7) * 0.2;
+    starMesh.rotation.z = Math.sin(t * 0.45) * 0.09;
+
+    const pulse = 0.5 + Math.sin(t * 2.3) * 0.5;
+    starMat.emissiveIntensity = 0.4 + pulse * 0.55;
+    starHaloInner.material.opacity = 0.24 + pulse * 0.24;
+    starHaloInner.scale.setScalar(1 + pulse * 0.14);
+    starHaloOuter.material.opacity = 0.1 + pulse * 0.14;
+    starHaloOuter.scale.setScalar(1 + pulse * 0.22);
+
+    starSparkles.forEach(sparkle => {
+      const u = sparkle.userData;
+      const a = u.angle + t * u.speed;
+      sparkle.position.set(
+        Math.cos(a) * u.radius,
+        Math.sin(a) * u.radius * 0.65 + Math.sin(t + u.phase) * u.tilt * 0.2,
+        Math.sin(a * 1.3) * 0.3
+      );
+      sparkle.material.opacity = 0.3 + (0.5 + Math.sin(t * 3 + u.phase) * 0.5) * 0.65;
+    });
+
+    starRenderer.render(starScene, starCamera);
+  };
+  starGateRAF = requestAnimationFrame(animateStarGate);
+}
 
 const clock = new THREE.Clock();
 const tmp = new THREE.Vector3();
@@ -201,6 +339,9 @@ const matCastleWindow = new THREE.MeshStandardMaterial({ color: 0xffd98a, emissi
 const sparkObjects = [];
 const animalObjects = [];
 const cloudObjects = [];
+const templeGateRocks = [];
+let templeGateOpen = false;
+const TEMPLE_GATE_RADIUS = 4.6;
 
 // =============================
 // MAPA
@@ -217,6 +358,7 @@ scene.add(underGround);
 
 createPath();
 createTempleCenter();
+createTempleGate();
 createPond();
 createBridge();
 createTrees();
@@ -277,6 +419,31 @@ function createTempleCenter() {
     cap.rotation.y = a;
     cap.castShadow = true;
     scene.add(cap);
+  }
+}
+
+// El portón de piedras bloquea los huecos entre columnas hasta que se
+// encuentran las otras 10 gemas; ver openTempleGate() / TEMPLE_GATE_RADIUS.
+function createTempleGate() {
+  const gapCount = 8;
+  for (let i = 0; i < gapCount; i++) {
+    const gapAngle = (i / gapCount) * Math.PI * 2 + Math.PI / gapCount;
+    for (let j = 0; j < 2; j++) {
+      const seed = i * 7 + j;
+      const angle = gapAngle + (j - 0.5) * 0.32;
+      const radius = 4.55 + rand(seed + 8100) * 0.45;
+      const rock = new THREE.Mesh(
+        new THREE.DodecahedronGeometry(0.48 + rand(seed + 8200) * 0.26, 0),
+        (i + j) % 2 ? matStoneDark : matStone
+      );
+      rock.position.set(Math.cos(angle) * radius, 0.4, Math.sin(angle) * radius);
+      rock.rotation.set(rand(seed + 8300) * Math.PI, rand(seed + 8400) * Math.PI, rand(seed + 8500) * Math.PI);
+      rock.scale.y = 0.75 + rand(seed + 8600) * 0.55;
+      rock.castShadow = true;
+      rock.userData = { kind: "gateRock", restY: rock.position.y, sinking: false };
+      scene.add(rock);
+      templeGateRocks.push(rock);
+    }
   }
 }
 
@@ -529,6 +696,84 @@ function createDeer(x, z, s, seed) {
   scene.add(group);
 }
 
+function createCat(furColor, darkColor, hasPatch, seed) {
+  const group = new THREE.Group();
+  const mat = new THREE.MeshToonMaterial({ color: furColor });
+  const matDark = new THREE.MeshToonMaterial({ color: darkColor });
+  const matPatch = new THREE.MeshToonMaterial({ color: 0xfaf6ee });
+  const matEye = new THREE.MeshToonMaterial({ color: 0x1c1a1a });
+  const matNose = new THREE.MeshToonMaterial({ color: 0xff9db0 });
+
+  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.15, 0.32, 4, 8), mat);
+  body.rotation.z = Math.PI / 2;
+  body.position.y = 0.22;
+  body.castShadow = true;
+  group.add(body);
+
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.15, 12, 10), mat);
+  head.position.set(0.28, 0.3, 0);
+  head.castShadow = true;
+  group.add(head);
+
+  const muzzle = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), mat);
+  muzzle.position.set(0.4, 0.26, 0);
+  group.add(muzzle);
+
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.018, 6, 6), matNose);
+  nose.position.set(0.46, 0.27, 0);
+  group.add(nose);
+
+  [-1, 1].forEach(side => {
+    const ear = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.1, 4), mat);
+    ear.position.set(0.31, 0.41, side * 0.075);
+    ear.rotation.x = side * 0.2;
+    ear.rotation.z = -0.15;
+    ear.castShadow = true;
+    group.add(ear);
+
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.022, 6, 6), matEye);
+    eye.position.set(0.37, 0.32, side * 0.07);
+    group.add(eye);
+  });
+
+  const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.05, 0.42, 6), mat);
+  tail.position.set(-0.28, 0.32, 0);
+  tail.rotation.z = 1.0;
+  tail.castShadow = true;
+  group.add(tail);
+
+  const legs = [];
+  [[-0.15, -0.09], [-0.15, 0.09], [0.15, -0.09], [0.15, 0.09]].forEach(([x, z]) => {
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.03, 0.2, 6), matDark);
+    leg.position.set(x, 0.1, z);
+    leg.castShadow = true;
+    group.add(leg);
+    legs.push(leg);
+  });
+
+  if (hasPatch) {
+    const headPatch = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), matPatch);
+    headPatch.position.set(0.33, 0.36, 0.04);
+    headPatch.scale.set(1, 0.8, 0.7);
+    group.add(headPatch);
+
+    const chestPatch = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 8), matPatch);
+    chestPatch.position.set(0.16, 0.16, 0);
+    chestPatch.scale.set(0.8, 1.1, 0.75);
+    group.add(chestPatch);
+  }
+
+  group.userData = {
+    tail,
+    legs,
+    seed,
+    state: "follow",
+    stateT: 0,
+    nextIdleAt: 2 + rand(seed) * 3
+  };
+  return group;
+}
+
 function createClouds() {
   for (let i = 0; i < 7; i++) {
     const cloud = new THREE.Group();
@@ -635,12 +880,20 @@ function createCastleAt(x, z, s, facing, seed) {
 // =============================
 // PERSONAJE Y ESTRELLITA
 // =============================
-const player = createPlayer();
+const player = new THREE.Group();
+const playerModel = createPlayer();
+player.add(playerModel);
 player.position.set(-27, 0, -23);
 scene.add(player);
 
 const fairyStar = createFairyStar();
 scene.add(fairyStar);
+
+const catOrange = createCat(0xd97a34, 0x5c3417, false, 401);
+const catBlack = createCat(0x1c1a1c, 0x100f10, true, 402);
+catOrange.position.set(player.position.x - 1, 0, player.position.z - 1);
+catBlack.position.set(player.position.x + 1, 0, player.position.z - 1);
+scene.add(catOrange, catBlack);
 
 function createPlayer() {
   const group = new THREE.Group();
@@ -659,6 +912,8 @@ function createPlayer() {
     group.add(mesh);
     return mesh;
   }
+
+  const parts = { armPivots: {} };
 
   // Zapatillas doradas con pequeño tacón y moño
   [-1, 1].forEach(side => {
@@ -706,14 +961,22 @@ function createPlayer() {
     sleeve.position.set(side * 0.27, 1.4, 0.02);
     add(sleeve);
 
+    const shoulderPivot = new THREE.Group();
+    shoulderPivot.position.set(side * 0.29, 1.37, 0.03);
+    group.add(shoulderPivot);
+
     const arm = new THREE.Mesh(new THREE.CapsuleGeometry(0.055, 0.28, 4, 6), matSkin);
-    arm.rotation.z = side * 0.4;
-    arm.position.set(side * 0.32, 1.14, 0.07);
-    add(arm);
+    arm.rotation.z = side * 0.18;
+    arm.position.set(side * 0.03, -0.23, 0.04);
+    arm.castShadow = true;
+    shoulderPivot.add(arm);
 
     const hand = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), matSkin);
-    hand.position.set(side * 0.37, 0.98, 0.12);
-    add(hand);
+    hand.position.set(side * 0.05, -0.43, 0.08);
+    hand.castShadow = true;
+    shoulderPivot.add(hand);
+
+    parts.armPivots[side] = shoulderPivot;
   });
 
   const cape = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.8, 0.04), matCape);
@@ -732,6 +995,7 @@ function createPlayer() {
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.26, 14, 12), matSkin);
   head.position.y = 1.82;
   add(head);
+  parts.head = head;
 
   [-1, 1].forEach(side => {
     const eye = new THREE.Mesh(new THREE.SphereGeometry(0.032, 8, 8), matEyes);
@@ -764,6 +1028,8 @@ function createPlayer() {
   braid.position.set(0, 1.28, -0.34);
   braid.rotation.x = 0.55;
   add(braid);
+  parts.braid = braid;
+  parts.braidBaseRotationZ = braid.rotation.z;
 
   const tiaraBand = new THREE.Mesh(new THREE.TorusGeometry(0.27, 0.022, 6, 20, Math.PI), matTiara);
   tiaraBand.rotation.x = Math.PI / 2;
@@ -785,6 +1051,7 @@ function createPlayer() {
   tinyLight.position.set(0, 1.2, 0);
   group.add(tinyLight);
 
+  group.userData.parts = parts;
   return group;
 }
 
@@ -905,6 +1172,10 @@ document.querySelector("#soundStartBtn").addEventListener("click", async () => {
   } catch (error) {
     // La aventura continúa igual aunque el navegador bloquee el autoplay.
   }
+  if (starGateRAF !== null) {
+    cancelAnimationFrame(starGateRAF);
+    starGateRAF = null;
+  }
   soundGate.classList.add("hidden");
   intro.classList.remove("hidden");
 });
@@ -983,7 +1254,16 @@ function onRiddleSuccess() {
     riddleOpen = false;
     revealGema(activeGema);
     activeGema = null;
+    resetMovementState();
   }, 520);
+}
+
+function resetMovementState() {
+  keys.up = false;
+  keys.down = false;
+  keys.left = false;
+  keys.right = false;
+  playerVelocity.set(0, 0, 0);
 }
 
 function checkRiddleAnswer(index) {
@@ -1013,6 +1293,7 @@ function closeRiddle() {
   riddleOpen = false;
   activeGema = null;
   riddleCooldownUntil = performance.now() + 1200;
+  resetMovementState();
 }
 
 function revealGema(group) {
@@ -1032,11 +1313,51 @@ function revealGema(group) {
 
   createShardCluster(group, data.color);
   fireworkBurst(group.position, data.color);
+  playGemSound();
+
+  if (discoveredCount === GEMAS.length - 1) {
+    openTempleGate();
+    setTimeout(() => {
+      zoneName.textContent = "El templo se abre";
+      zoneText.textContent = `Las piedras que bloqueaban el centro del bosque se hunden en la tierra. La última gema te espera, ${CONFIG.sobrina}.`;
+    }, 2600);
+  }
 
   if (discoveredCount === GEMAS.length && !finalShown) {
     finalShown = true;
     setTimeout(() => finalCard.classList.remove("hidden"), 900);
   }
+}
+
+function openTempleGate() {
+  if (templeGateOpen) return;
+  templeGateOpen = true;
+  templeGateRocks.forEach((rock, i) => {
+    setTimeout(() => {
+      rock.userData.sinking = true;
+      burstParticles(rock.position, 0xffd86b, 6, 0.7);
+    }, i * 90);
+  });
+}
+
+function animateTempleGate(dt) {
+  templeGateRocks.forEach(rock => {
+    if (rock.userData.sinking && rock.visible) {
+      rock.position.y -= dt * 1.6;
+      rock.rotation.x += dt * 2.4;
+      rock.rotation.z += dt * 1.6;
+      if (rock.position.y < rock.userData.restY - 2.4) {
+        rock.visible = false;
+      }
+    }
+  });
+}
+
+function playGemSound() {
+  const file = CONFIG.gemSoundFiles[Math.floor(Math.random() * CONFIG.gemSoundFiles.length)];
+  const sfx = new Audio(file);
+  sfx.volume = 0.85;
+  sfx.play().catch(() => {});
 }
 
 function createShardCluster(group, color) {
@@ -1065,19 +1386,29 @@ function createShardCluster(group, color) {
 
 function spawnTrailSpark() {
   const seed = performance.now();
+  const x = player.position.x + (rand(seed + 1) - 0.5) * 0.3;
+  const z = player.position.z + (rand(seed + 3) - 0.5) * 0.3;
+  const y = 0.08 + rand(seed + 2) * 0.12;
+
   const spark = new THREE.Mesh(
-    new THREE.SphereGeometry(0.04 + rand(seed) * 0.03, 6, 6),
-    new THREE.MeshBasicMaterial({ color: 0xffe38a, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
+    new THREE.SphereGeometry(0.075 + rand(seed) * 0.045, 8, 8),
+    new THREE.MeshBasicMaterial({ color: 0xfff3c4, transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false })
   );
-  spark.position.set(
-    player.position.x + (rand(seed + 1) - 0.5) * 0.35,
-    0.1 + rand(seed + 2) * 0.15,
-    player.position.z + (rand(seed + 3) - 0.5) * 0.35
-  );
-  spark.userData.velocity = new THREE.Vector3(0, 0.3, 0);
-  spark.userData.life = 0.55;
+  spark.position.set(x, y, z);
+  spark.userData.velocity = new THREE.Vector3(0, 0.45, 0);
+  spark.userData.life = 0.9;
   sparkObjects.push(spark);
   scene.add(spark);
+
+  const halo = new THREE.Mesh(
+    new THREE.SphereGeometry(0.16 + rand(seed + 5) * 0.05, 8, 8),
+    new THREE.MeshBasicMaterial({ color: 0xffd96a, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false })
+  );
+  halo.position.set(x, y, z);
+  halo.userData.velocity = new THREE.Vector3(0, 0.3, 0);
+  halo.userData.life = 0.7;
+  sparkObjects.push(halo);
+  scene.add(halo);
 }
 
 function fireworkBurst(origin, color) {
@@ -1145,6 +1476,7 @@ function touchPointDistance() {
 }
 
 window.addEventListener("keydown", (e) => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
   if (keyMap[e.code]) {
     keys[keyMap[e.code]] = true;
     resumeFollowCamera();
@@ -1232,6 +1564,8 @@ renderer.domElement.addEventListener("pointercancel", endTouchMove);
 // =============================
 const playerVelocity = new THREE.Vector3();
 let trailTimer = 0;
+let walkCycle = 0;
+const idleGesture = { active: null, t: 0, timer: 0, nextAt: 4 + Math.random() * 3 };
 const BASE_CAMERA_ANGLE = Math.atan2(16, 11);
 const BASE_CAMERA_RADIUS = Math.hypot(11, 16);
 const BASE_CAMERA_HEIGHT = 17.5;
@@ -1247,6 +1581,9 @@ function animate() {
   animateClouds(dt);
   animateFairy(t, dt);
   if (started && !riddleOpen) updatePlayer(dt);
+  animatePlayerModel(t, dt);
+  animateCats(t, dt);
+  animateTempleGate(dt);
   updateCamera(dt);
 
   renderer.render(scene, camera);
@@ -1272,12 +1609,15 @@ function updatePlayer(dt) {
   player.position.addScaledVector(playerVelocity, dt);
   const maxRadius = 46.2;
   if (player.position.length() > maxRadius) player.position.setLength(maxRadius);
+  if (!templeGateOpen && player.position.length() < TEMPLE_GATE_RADIUS) {
+    player.position.setLength(TEMPLE_GATE_RADIUS);
+  }
   player.position.y = 0;
 
   trailTimer -= dt;
   if (playerVelocity.lengthSq() > 1 && trailTimer <= 0) {
     spawnTrailSpark();
-    trailTimer = 0.055;
+    trailTimer = 0.04;
   }
 
   gemaObjects.forEach(group => {
@@ -1285,6 +1625,79 @@ function updatePlayer(dt) {
     const distance = tmp.copy(group.position).sub(player.position).length();
     if (distance < 2.45) openRiddle(group);
   });
+}
+
+function animatePlayerModel(t, dt) {
+  const parts = playerModel.userData.parts;
+  const speed = playerVelocity.length();
+  const moving = started && !riddleOpen && speed > 0.6;
+
+  if (moving) {
+    walkCycle += dt * (5 + speed * 0.9);
+    const speedRatio = Math.min(speed / 9.3, 1);
+    playerModel.position.y = Math.abs(Math.sin(walkCycle)) * 0.085;
+    playerModel.rotation.x = speedRatio * 0.05;
+    playerModel.rotation.z = Math.sin(walkCycle * 0.5) * 0.035;
+
+    const swing = speedRatio * 0.55;
+    parts.armPivots[-1].rotation.x = Math.sin(walkCycle) * swing;
+    parts.armPivots[1].rotation.x = -Math.sin(walkCycle) * swing;
+    if (parts.braid) parts.braid.rotation.z = parts.braidBaseRotationZ + Math.sin(walkCycle * 0.5) * 0.12;
+    if (parts.head) parts.head.rotation.z = Math.sin(walkCycle * 0.5) * 0.03;
+
+    idleGesture.active = null;
+    idleGesture.timer = 0;
+  } else {
+    walkCycle = 0;
+    const breathe = Math.sin(t * 1.4) * 0.014;
+    playerModel.rotation.x += (0 - playerModel.rotation.x) * 0.1;
+
+    idleGesture.timer += dt;
+    if (!idleGesture.active && idleGesture.timer > idleGesture.nextAt) {
+      idleGesture.active = Math.random() < 0.5 ? "wipe" : "dance";
+      idleGesture.t = 0;
+    }
+
+    if (idleGesture.active === "wipe") {
+      idleGesture.t += dt;
+      const dur = 1.7;
+      const p = clamp(idleGesture.t / dur, 0, 1);
+      const raise = Math.sin(p * Math.PI);
+      playerModel.position.y = breathe;
+      playerModel.rotation.z += (0 - playerModel.rotation.z) * 0.1;
+      parts.armPivots[1].rotation.x = -raise * 2.05;
+      parts.armPivots[1].rotation.z = -0.15 - raise * 0.55;
+      parts.armPivots[-1].rotation.x += (0 - parts.armPivots[-1].rotation.x) * 0.1;
+      if (parts.head) parts.head.rotation.x = -raise * 0.12;
+      if (p >= 1) {
+        idleGesture.active = null;
+        idleGesture.timer = 0;
+        idleGesture.nextAt = 5 + Math.random() * 5;
+      }
+    } else if (idleGesture.active === "dance") {
+      idleGesture.t += dt;
+      const dur = 1.8;
+      playerModel.position.y = breathe + Math.abs(Math.sin(idleGesture.t * 6)) * 0.04;
+      playerModel.rotation.z = Math.sin(idleGesture.t * 6) * 0.09;
+      parts.armPivots[-1].rotation.x = Math.sin(idleGesture.t * 6) * 0.5;
+      parts.armPivots[1].rotation.x = -Math.sin(idleGesture.t * 6) * 0.5;
+      parts.armPivots[1].rotation.z += (0 - parts.armPivots[1].rotation.z) * 0.15;
+      if (idleGesture.t >= dur) {
+        idleGesture.active = null;
+        idleGesture.timer = 0;
+        idleGesture.nextAt = 5 + Math.random() * 5;
+      }
+    } else {
+      playerModel.position.y = breathe;
+      playerModel.rotation.z += (Math.sin(t * 0.6) * 0.02 - playerModel.rotation.z) * 0.06;
+      parts.armPivots[-1].rotation.x += (0 - parts.armPivots[-1].rotation.x) * 0.08;
+      parts.armPivots[1].rotation.x += (0 - parts.armPivots[1].rotation.x) * 0.08;
+      parts.armPivots[1].rotation.z += (0 - parts.armPivots[1].rotation.z) * 0.08;
+      if (parts.head) parts.head.rotation.x += (0 - parts.head.rotation.x) * 0.05;
+    }
+    if (parts.head) parts.head.rotation.z += (0 - parts.head.rotation.z) * 0.05;
+    if (parts.braid) parts.braid.rotation.z += (parts.braidBaseRotationZ - parts.braid.rotation.z) * 0.05;
+  }
 }
 
 function animateGemas(t, dt) {
@@ -1349,6 +1762,73 @@ function animateAnimals(t) {
     animal.position.y = Math.max(0, Math.sin(t * 2.5 + phase) * 0.025);
     animal.rotation.y += Math.sin(t * 0.8 + i) * 0.0018;
   });
+}
+
+function animateCats(t, dt) {
+  const playerMoving = started && !riddleOpen && playerVelocity.length() > 0.6;
+  updateCat(catOrange, t, dt, playerMoving, -1, 0.6);
+  updateCat(catBlack, t, dt, playerMoving, 1, 2.1);
+}
+
+function updateCat(cat, t, dt, playerMoving, side, phase) {
+  const ud = cat.userData;
+  const facing = player.rotation.y;
+  const behindX = -Math.sin(facing);
+  const behindZ = -Math.cos(facing);
+  const sideX = Math.cos(facing);
+  const sideZ = -Math.sin(facing);
+
+  const desired = new THREE.Vector3(
+    player.position.x + behindX * 1.4 + sideX * side * 0.85 + Math.sin(t * 0.4 + phase) * 0.35,
+    0,
+    player.position.z + behindZ * 1.4 + sideZ * side * 0.85 + Math.cos(t * 0.33 + phase) * 0.35
+  );
+  const toDesired = desired.clone().sub(cat.position);
+  const distance = toDesired.length();
+
+  ud.stateT += dt;
+  if (playerMoving || distance > 2.2) {
+    ud.state = "follow";
+    ud.stateT = 0;
+  } else if (ud.state === "follow" && ud.stateT > ud.nextIdleAt) {
+    ud.state = Math.random() < 0.5 ? "sit" : "explore";
+    ud.stateT = 0;
+    ud.nextIdleAt = 2.5 + Math.random() * 3;
+  } else if (ud.state !== "follow" && ud.stateT > 2.6) {
+    ud.state = "follow";
+    ud.stateT = 0;
+  }
+
+  if (ud.state === "follow" && distance > 0.12) {
+    cat.position.lerp(desired, playerMoving ? 0.05 : 0.03);
+    if (toDesired.lengthSq() > 0.0001) {
+      const targetAngle = Math.atan2(toDesired.x, toDesired.z);
+      const delta = Math.atan2(Math.sin(targetAngle - cat.rotation.y), Math.cos(targetAngle - cat.rotation.y));
+      cat.rotation.y += delta * 0.12;
+    }
+    const gait = t * 9 + phase;
+    cat.position.y = Math.abs(Math.sin(gait)) * 0.045;
+    ud.legs.forEach((leg, i) => {
+      leg.rotation.x = Math.sin(gait + (i % 2 === 0 ? 0 : Math.PI)) * 0.5;
+    });
+    ud.tail.rotation.y = Math.sin(t * 3 + phase) * 0.25;
+  } else if (ud.state === "sit") {
+    cat.position.y += (-0.05 - cat.position.y) * 0.08;
+    ud.legs.forEach(leg => { leg.rotation.x += (0 - leg.rotation.x) * 0.1; });
+    ud.tail.rotation.y = Math.sin(t * 1.2 + phase) * 0.35;
+  } else {
+    const sniff = new THREE.Vector3(
+      cat.position.x + Math.sin(t * 0.9 + phase) * 0.5,
+      0,
+      cat.position.z + Math.cos(t * 0.7 + phase) * 0.5
+    );
+    cat.position.lerp(sniff, 0.01);
+    cat.position.y = Math.abs(Math.sin(t * 6 + phase)) * 0.03;
+    ud.legs.forEach((leg, i) => {
+      leg.rotation.x = Math.sin(t * 6 + phase + (i % 2 === 0 ? 0 : Math.PI)) * 0.25;
+    });
+    ud.tail.rotation.y = Math.sin(t * 4 + phase) * 0.4;
+  }
 }
 
 function animateClouds(dt) {

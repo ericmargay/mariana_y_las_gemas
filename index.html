@@ -13,7 +13,7 @@
   <section id="soundGate" class="overlay-card gate-card">
     <p class="tiny-label">Despiértame y llévame al reino del bosque</p>
     <button id="soundStartBtn" class="star-button" aria-label="Comenzar música y abrir la aventura">
-      <span>✦</span>
+      <canvas id="starCanvas" aria-hidden="true"></canvas>
     </button>
   </section>
 
@@ -31,7 +31,7 @@
     <div class="topbar">
       <div>
         <strong>Gemas encontradas</strong>
-        <span id="counter">0 / 9</span>
+        <span id="counter">0 / 11</span>
       </div>
       <button id="helpBtn" aria-label="Mostrar ayuda">?</button>
     </div>
@@ -56,18 +56,16 @@
 
     <section id="finalCard" class="final-card hidden">
       <div class="crest glow-star">✦</div>
-      <h2>El secreto de las 9 gemas</h2>
+      <h2>El secreto de las 11 gemas</h2>
       <p id="fullMessage"></p>
-      <button id="closeFinal">Seguir explorando</button>
+      <button id="closeFinal">Feliz cumpleaños</button>
     </section>
 
     <div id="mobileControls" aria-label="Controles de movimiento">
       <button data-move="up" aria-label="Mover arriba">▲</button>
-      <div>
-        <button data-move="left" aria-label="Mover izquierda">◀</button>
-        <button data-move="down" aria-label="Mover abajo">▼</button>
-        <button data-move="right" aria-label="Mover derecha">▶</button>
-      </div>
+      <button data-move="left" aria-label="Mover izquierda">◀</button>
+      <button data-move="down" aria-label="Mover abajo">▼</button>
+      <button data-move="right" aria-label="Mover derecha">▶</button>
     </div>
   </main>
 

@@ -24,6 +24,19 @@ La música empieza cuando se toca el botón de estrella inicial. Esto es necesar
 
 Si quieres usar otro nombre de archivo, edita `CONFIG.soundtrackFile` dentro de `main.js`.
 
+## Sonidos al desbloquear una gema
+
+Coloca hasta 4 archivos de sonido cortos en la raíz del proyecto con estos nombres:
+
+```text
+gema1.mp3
+gema2.mp3
+gema3.mp3
+gema4.mp3
+```
+
+Cada vez que se desbloquea una gema, el juego elige uno al azar y lo reproduce sin interrumpir el soundtrack. Si un archivo no existe, simplemente no suena (no rompe el juego). Puedes cambiar los nombres editando `CONFIG.gemSoundFiles` dentro de `main.js`.
+
 ## Cómo probar localmente
 
 Abre la carpeta con VS Code y usa Live Server, o ejecuta:

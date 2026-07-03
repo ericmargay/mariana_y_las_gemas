@@ -94,17 +94,17 @@ button:active { transform: translateY(1px) scale(0.98); }
 .star-button::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 35% 25%, #fff8ce, #ffd86b 48%, #be7d16 100%);
-  clip-path: polygon(50.00% 2.00%, 53.36% 8.24%, 57.04% 14.16%, 61.04% 19.76%, 65.36% 25.04%, 70.00% 30.00%, 74.96% 34.64%, 80.24% 38.96%, 85.84% 42.96%, 91.76% 46.64%, 98.00% 50.00%, 91.76% 53.36%, 85.84% 57.04%, 80.24% 61.04%, 74.96% 65.36%, 70.00% 70.00%, 65.36% 74.96%, 61.04% 80.24%, 57.04% 85.84%, 53.36% 91.76%, 50.00% 98.00%, 46.64% 91.76%, 42.96% 85.84%, 38.96% 80.24%, 34.64% 74.96%, 30.00% 70.00%, 25.04% 65.36%, 19.76% 61.04%, 14.16% 57.04%, 8.24% 53.36%, 2.00% 50.00%, 8.24% 46.64%, 14.16% 42.96%, 19.76% 38.96%, 25.04% 34.64%, 30.00% 30.00%, 34.64% 25.04%, 38.96% 19.76%, 42.96% 14.16%, 46.64% 8.24%);
+  inset: -25%;
+  background: radial-gradient(circle, rgba(255,216,107,0.55), rgba(255,216,107,0) 68%);
+  border-radius: 50%;
+  z-index: 0;
 }
-.star-button span {
+.star-button canvas {
   position: relative;
   z-index: 1;
-}
-.star-button span {
-  font-size: 3rem;
-  transform: translateY(-3px);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .crest {
@@ -260,37 +260,51 @@ button:active { transform: translateY(1px) scale(0.98); }
 .final-card h2 { color: var(--gold); margin: 0.2rem 0 0.8rem; }
 .final-card p { line-height: 1.72; font-size: clamp(1.02rem, 2.6vw, 1.22rem); white-space: pre-line; }
 
-#mobileControls {
-  position: fixed;
-  right: max(10px, env(safe-area-inset-right));
-  bottom: max(18px, calc(env(safe-area-inset-bottom) + 12px));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.26rem;
-  opacity: 0.88;
-}
-#mobileControls div { display: flex; gap: 0.26rem; }
 #mobileControls button {
-  width: 39px;
-  height: 39px;
+  position: fixed;
+  width: 46px;
+  height: 46px;
   padding: 0;
-  border-radius: 13px;
+  border-radius: 14px;
   color: #050505;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 900;
   background: rgba(255,249,232,0.78);
   border: 1px solid rgba(0,0,0,0.32);
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  opacity: 0.88;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+#mobileControls button[data-move="up"] {
+  top: max(14px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+}
+#mobileControls button[data-move="down"] {
+  bottom: max(14px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+}
+#mobileControls button[data-move="left"] {
+  left: max(14px, env(safe-area-inset-left));
+  top: 50%;
+  transform: translateY(-50%);
+}
+#mobileControls button[data-move="right"] {
+  right: max(14px, env(safe-area-inset-right));
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 @media (max-width: 780px), (pointer: coarse) {
-  #mobileControls { display: flex; }
   .message-box {
-    left: max(10px, env(safe-area-inset-left));
-    right: max(100px, calc(env(safe-area-inset-right) + 92px));
-    bottom: max(12px, env(safe-area-inset-bottom));
+    left: max(64px, env(safe-area-inset-left));
+    right: max(64px, env(safe-area-inset-right));
+    bottom: max(64px, calc(env(safe-area-inset-bottom) + 58px));
     transform: none;
     width: auto;
     padding: 0.72rem 0.82rem;
