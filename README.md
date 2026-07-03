@@ -35,7 +35,15 @@ gema3.mp3
 gema4.mp3
 ```
 
-Cada vez que se desbloquea una gema, el juego elige uno al azar y lo reproduce sin interrumpir el soundtrack. Si un archivo no existe, simplemente no suena (no rompe el juego). Puedes cambiar los nombres editando `CONFIG.gemSoundFiles` dentro de `main.js`.
+Cada vez que se desbloquea una de las primeras 10 gemas, el juego elige uno al azar y lo reproduce sin interrumpir el soundtrack. Si un archivo no existe, simplemente no suena (no rompe el juego). Puedes cambiar los nombres editando `CONFIG.gemSoundFiles` dentro de `main.js`.
+
+La última gema (la del centro del bosque) tiene su propio sonido especial:
+
+```text
+gema5.mp3
+```
+
+Se puede cambiar editando `CONFIG.finalGemSoundFile`.
 
 ## Cómo probar localmente
 

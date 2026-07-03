@@ -8,6 +8,7 @@ const CONFIG = {
   firma: "Con todo mi cariño, tu tío",
   soundtrackFile: "soundtrack.mp3",
   gemSoundFiles: ["gema1.mp3", "gema2.mp3", "gema3.mp3", "gema4.mp3"],
+  finalGemSoundFile: "gema5.mp3",
   tituloFinal: "Feliz cumpleaños número 11, Marianita",
   mensajeFinal: [
     "Marianita, el secreto final no estaba dentro de una gema ni debajo de una piedra antigua.",
@@ -432,15 +433,16 @@ function createTempleGate() {
       const seed = i * 7 + j;
       const angle = gapAngle + (j - 0.5) * 0.32;
       const radius = 4.55 + rand(seed + 8100) * 0.45;
+      const rockRadius = 0.48 + rand(seed + 8200) * 0.26;
       const rock = new THREE.Mesh(
-        new THREE.DodecahedronGeometry(0.48 + rand(seed + 8200) * 0.26, 0),
+        new THREE.DodecahedronGeometry(rockRadius, 0),
         (i + j) % 2 ? matStoneDark : matStone
       );
       rock.position.set(Math.cos(angle) * radius, 0.4, Math.sin(angle) * radius);
       rock.rotation.set(rand(seed + 8300) * Math.PI, rand(seed + 8400) * Math.PI, rand(seed + 8500) * Math.PI);
       rock.scale.y = 0.75 + rand(seed + 8600) * 0.55;
       rock.castShadow = true;
-      rock.userData = { kind: "gateRock", restY: rock.position.y, sinking: false };
+      rock.userData = { kind: "gateRock", rolling: false, rockRadius };
       scene.add(rock);
       templeGateRocks.push(rock);
     }
@@ -701,51 +703,74 @@ function createCat(furColor, darkColor, hasPatch, seed) {
   const mat = new THREE.MeshToonMaterial({ color: furColor });
   const matDark = new THREE.MeshToonMaterial({ color: darkColor });
   const matPatch = new THREE.MeshToonMaterial({ color: 0xfaf6ee });
-  const matEye = new THREE.MeshToonMaterial({ color: 0x1c1a1a });
+  const matEye = new THREE.MeshToonMaterial({ color: 0x8fd94a });
+  const matPupil = new THREE.MeshToonMaterial({ color: 0x131313 });
   const matNose = new THREE.MeshToonMaterial({ color: 0xff9db0 });
 
-  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.15, 0.32, 4, 8), mat);
+  // Cuerpo compacto y curvo, más bajo y recogido que un perro.
+  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.135, 0.24, 4, 8), mat);
   body.rotation.z = Math.PI / 2;
-  body.position.y = 0.22;
+  body.rotation.x = 0.06;
+  body.position.y = 0.17;
   body.castShadow = true;
   group.add(body);
 
-  const head = new THREE.Mesh(new THREE.SphereGeometry(0.15, 12, 10), mat);
-  head.position.set(0.28, 0.3, 0);
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.155, 12, 10), mat);
+  head.position.set(0.24, 0.23, 0);
   head.castShadow = true;
   group.add(head);
 
-  const muzzle = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), mat);
-  muzzle.position.set(0.4, 0.26, 0);
+  const muzzle = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 8), mat);
+  muzzle.scale.set(1, 0.8, 0.9);
+  muzzle.position.set(0.35, 0.18, 0);
   group.add(muzzle);
 
-  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.018, 6, 6), matNose);
-  nose.position.set(0.46, 0.27, 0);
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.016, 6, 6), matNose);
+  nose.position.set(0.405, 0.195, 0);
   group.add(nose);
 
   [-1, 1].forEach(side => {
-    const ear = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.1, 4), mat);
-    ear.position.set(0.31, 0.41, side * 0.075);
-    ear.rotation.x = side * 0.2;
-    ear.rotation.z = -0.15;
+    // Orejas triangulares grandes y juntas, la seña más clara de "gato".
+    const ear = new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.14, 4), mat);
+    ear.position.set(0.2, 0.365, side * 0.075);
+    ear.rotation.x = -0.05;
+    ear.rotation.z = side * -0.22;
+    ear.rotation.y = side * 0.3;
     ear.castShadow = true;
     group.add(ear);
 
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.022, 6, 6), matEye);
-    eye.position.set(0.37, 0.32, side * 0.07);
+    const earInner = new THREE.Mesh(new THREE.ConeGeometry(0.032, 0.08, 4), matDark);
+    earInner.position.set(0.205, 0.35, side * 0.07);
+    earInner.rotation.copy(ear.rotation);
+    group.add(earInner);
+
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.026, 8, 8), matEye);
+    eye.scale.set(0.7, 1, 1);
+    eye.position.set(0.32, 0.25, side * 0.09);
     group.add(eye);
+
+    const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.012, 6, 6), matPupil);
+    pupil.position.set(0.336, 0.25, side * 0.09);
+    group.add(pupil);
   });
 
-  const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.05, 0.42, 6), mat);
-  tail.position.set(-0.28, 0.32, 0);
-  tail.rotation.z = 1.0;
-  tail.castShadow = true;
-  group.add(tail);
+  // Cola larga y delgada, curvada hacia arriba como signo de interrogación.
+  const tailBase = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.045, 0.26, 6), mat);
+  tailBase.position.set(-0.24, 0.27, 0);
+  tailBase.rotation.z = 1.2;
+  tailBase.castShadow = true;
+  group.add(tailBase);
+
+  const tailTip = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.028, 0.2, 6), mat);
+  tailTip.position.set(-0.35, 0.47, 0);
+  tailTip.rotation.z = 0.4;
+  tailTip.castShadow = true;
+  group.add(tailTip);
 
   const legs = [];
-  [[-0.15, -0.09], [-0.15, 0.09], [0.15, -0.09], [0.15, 0.09]].forEach(([x, z]) => {
-    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.03, 0.2, 6), matDark);
-    leg.position.set(x, 0.1, z);
+  [[-0.12, -0.075], [-0.12, 0.075], [0.13, -0.075], [0.13, 0.075]].forEach(([x, z]) => {
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.026, 0.15, 6), matDark);
+    leg.position.set(x, 0.075, z);
     leg.castShadow = true;
     group.add(leg);
     legs.push(leg);
@@ -753,18 +778,19 @@ function createCat(furColor, darkColor, hasPatch, seed) {
 
   if (hasPatch) {
     const headPatch = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), matPatch);
-    headPatch.position.set(0.33, 0.36, 0.04);
+    headPatch.position.set(0.28, 0.29, 0.04);
     headPatch.scale.set(1, 0.8, 0.7);
     group.add(headPatch);
 
     const chestPatch = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 8), matPatch);
-    chestPatch.position.set(0.16, 0.16, 0);
+    chestPatch.position.set(0.1, 0.13, 0);
     chestPatch.scale.set(0.8, 1.1, 0.75);
     group.add(chestPatch);
   }
 
   group.userData = {
-    tail,
+    tailBase,
+    tailTip,
     legs,
     seed,
     state: "follow",
@@ -1141,6 +1167,7 @@ const intro = document.querySelector("#intro");
 const hud = document.querySelector("#hud");
 const soundtrack = document.querySelector("#soundtrack");
 const counter = document.querySelector("#counter");
+const messageBox = document.querySelector("#messageBox");
 const zoneName = document.querySelector("#zoneName");
 const zoneText = document.querySelector("#zoneText");
 const finalCard = document.querySelector("#finalCard");
@@ -1313,13 +1340,15 @@ function revealGema(group) {
 
   createShardCluster(group, data.color);
   fireworkBurst(group.position, data.color);
-  playGemSound();
+  playGemSound(group.userData.index === GEMAS.length - 1);
 
   if (discoveredCount === GEMAS.length - 1) {
     openTempleGate();
     setTimeout(() => {
-      zoneName.textContent = "El templo se abre";
-      zoneText.textContent = `Las piedras que bloqueaban el centro del bosque se hunden en la tierra. La última gema te espera, ${CONFIG.sobrina}.`;
+      zoneName.textContent = "¡Entrada desbloqueada!";
+      zoneText.textContent = `Las piedras que bloqueaban el centro del bosque ruedan hacia los lados y despejan el camino. La última gema te espera, ${CONFIG.sobrina}.`;
+      messageBox.classList.add("highlight-pulse");
+      setTimeout(() => messageBox.classList.remove("highlight-pulse"), 3200);
     }, 2600);
   }
 
@@ -1334,7 +1363,16 @@ function openTempleGate() {
   templeGateOpen = true;
   templeGateRocks.forEach((rock, i) => {
     setTimeout(() => {
-      rock.userData.sinking = true;
+      const dir = new THREE.Vector3(rock.position.x, 0, rock.position.z);
+      if (dir.lengthSq() < 0.0001) dir.set(1, 0, 0); else dir.normalize();
+      const rollDistance = 2.2 + Math.random() * 2.8;
+      rock.userData.rolling = true;
+      rock.userData.rollStart = rock.position.clone();
+      rock.userData.rollTarget = rock.position.clone().addScaledVector(dir, rollDistance);
+      rock.userData.rollAxis = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), dir).normalize();
+      rock.userData.rollT = 0;
+      rock.userData.rollDuration = 1.3 + Math.random() * 0.8;
+      rock.userData.lastRollAngle = 0;
       burstParticles(rock.position, 0xffd86b, 6, 0.7);
     }, i * 90);
   });
@@ -1342,19 +1380,25 @@ function openTempleGate() {
 
 function animateTempleGate(dt) {
   templeGateRocks.forEach(rock => {
-    if (rock.userData.sinking && rock.visible) {
-      rock.position.y -= dt * 1.6;
-      rock.rotation.x += dt * 2.4;
-      rock.rotation.z += dt * 1.6;
-      if (rock.position.y < rock.userData.restY - 2.4) {
-        rock.visible = false;
-      }
-    }
+    if (!rock.userData.rolling) return;
+    rock.userData.rollT += dt;
+    const p = Math.min(rock.userData.rollT / rock.userData.rollDuration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    rock.position.lerpVectors(rock.userData.rollStart, rock.userData.rollTarget, eased);
+
+    const distanceSoFar = rock.userData.rollStart.distanceTo(rock.position);
+    const rollAngle = distanceSoFar / Math.max(rock.userData.rockRadius, 0.1);
+    rock.rotateOnWorldAxis(rock.userData.rollAxis, rollAngle - rock.userData.lastRollAngle);
+    rock.userData.lastRollAngle = rollAngle;
+
+    if (p >= 1) rock.userData.rolling = false;
   });
 }
 
-function playGemSound() {
-  const file = CONFIG.gemSoundFiles[Math.floor(Math.random() * CONFIG.gemSoundFiles.length)];
+function playGemSound(isFinal) {
+  const file = isFinal
+    ? CONFIG.finalGemSoundFile
+    : CONFIG.gemSoundFiles[Math.floor(Math.random() * CONFIG.gemSoundFiles.length)];
   const sfx = new Audio(file);
   sfx.volume = 0.85;
   sfx.play().catch(() => {});
@@ -1386,29 +1430,23 @@ function createShardCluster(group, color) {
 
 function spawnTrailSpark() {
   const seed = performance.now();
-  const x = player.position.x + (rand(seed + 1) - 0.5) * 0.3;
-  const z = player.position.z + (rand(seed + 3) - 0.5) * 0.3;
-  const y = 0.08 + rand(seed + 2) * 0.12;
+  const x = player.position.x + (rand(seed + 1) - 0.5) * 0.32;
+  const z = player.position.z + (rand(seed + 3) - 0.5) * 0.32;
+  const y = 0.05 + rand(seed + 2) * 0.14;
+  const color = rand(seed + 9) > 0.45 ? 0xfff6da : 0xffd96a;
 
-  const spark = new THREE.Mesh(
-    new THREE.SphereGeometry(0.075 + rand(seed) * 0.045, 8, 8),
-    new THREE.MeshBasicMaterial({ color: 0xfff3c4, transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false })
+  // Destello angular pequeño y rápido (no una esfera suave tipo humo).
+  const glint = new THREE.Mesh(
+    new THREE.OctahedronGeometry(0.05 + rand(seed) * 0.035, 0),
+    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false })
   );
-  spark.position.set(x, y, z);
-  spark.userData.velocity = new THREE.Vector3(0, 0.45, 0);
-  spark.userData.life = 0.9;
-  sparkObjects.push(spark);
-  scene.add(spark);
-
-  const halo = new THREE.Mesh(
-    new THREE.SphereGeometry(0.16 + rand(seed + 5) * 0.05, 8, 8),
-    new THREE.MeshBasicMaterial({ color: 0xffd96a, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false })
-  );
-  halo.position.set(x, y, z);
-  halo.userData.velocity = new THREE.Vector3(0, 0.3, 0);
-  halo.userData.life = 0.7;
-  sparkObjects.push(halo);
-  scene.add(halo);
+  glint.position.set(x, y, z);
+  glint.rotation.set(rand(seed + 4) * Math.PI, rand(seed + 5) * Math.PI, rand(seed + 6) * Math.PI);
+  glint.userData.velocity = new THREE.Vector3(0, 0.55, 0);
+  glint.userData.life = 0.4;
+  glint.userData.spin = 5 + rand(seed + 7) * 5;
+  sparkObjects.push(glint);
+  scene.add(glint);
 }
 
 function fireworkBurst(origin, color) {
@@ -1569,6 +1607,9 @@ const idleGesture = { active: null, t: 0, timer: 0, nextAt: 4 + Math.random() * 
 const BASE_CAMERA_ANGLE = Math.atan2(16, 11);
 const BASE_CAMERA_RADIUS = Math.hypot(11, 16);
 const BASE_CAMERA_HEIGHT = 17.5;
+const playerTrail = [];
+const PLAYER_TRAIL_MAX = 260;
+let trailSampleTimer = 0;
 
 function animate() {
   requestAnimationFrame(animate);
@@ -1742,6 +1783,10 @@ function animateSparks(dt) {
     obj.userData.life -= dt;
     obj.position.addScaledVector(obj.userData.velocity, dt);
     obj.userData.velocity.y -= dt * 2.8;
+    if (obj.userData.spin) {
+      obj.rotation.x += dt * obj.userData.spin;
+      obj.rotation.y += dt * obj.userData.spin * 0.7;
+    }
     obj.material.opacity = Math.max(obj.userData.life, 0);
     obj.scale.setScalar(Math.max(obj.userData.life, 0.05));
     if (obj.userData.life <= 0) {
@@ -1764,30 +1809,44 @@ function animateAnimals(t) {
   });
 }
 
-function animateCats(t, dt) {
-  const playerMoving = started && !riddleOpen && playerVelocity.length() > 0.6;
-  updateCat(catOrange, t, dt, playerMoving, -1, 0.6);
-  updateCat(catBlack, t, dt, playerMoving, 1, 2.1);
+// Los gatos siguen las huellas reales del personaje (no una línea recta hacia
+// él), guardadas aquí como un historial de posiciones. Cada gato persigue un
+// punto un poco más atrás en ese historial, así que trazan el mismo camino.
+function updatePlayerTrail(dt) {
+  trailSampleTimer -= dt;
+  if (trailSampleTimer <= 0) {
+    playerTrail.push({ x: player.position.x, z: player.position.z });
+    if (playerTrail.length > PLAYER_TRAIL_MAX) playerTrail.shift();
+    trailSampleTimer = 0.05;
+  }
 }
 
-function updateCat(cat, t, dt, playerMoving, side, phase) {
-  const ud = cat.userData;
-  const facing = player.rotation.y;
-  const behindX = -Math.sin(facing);
-  const behindZ = -Math.cos(facing);
-  const sideX = Math.cos(facing);
-  const sideZ = -Math.sin(facing);
+function getTrailPoint(offset) {
+  if (playerTrail.length === 0) return { x: player.position.x, z: player.position.z };
+  const idx = Math.max(0, playerTrail.length - 1 - offset);
+  return playerTrail[idx];
+}
 
+function animateCats(t, dt) {
+  updatePlayerTrail(dt);
+  const playerMoving = started && !riddleOpen && playerVelocity.length() > 0.6;
+  updateCat(catOrange, t, dt, playerMoving, 12, 0.6);
+  updateCat(catBlack, t, dt, playerMoving, 24, 2.1);
+}
+
+function updateCat(cat, t, dt, playerMoving, trailOffset, phase) {
+  const ud = cat.userData;
+  const point = getTrailPoint(trailOffset);
   const desired = new THREE.Vector3(
-    player.position.x + behindX * 1.4 + sideX * side * 0.85 + Math.sin(t * 0.4 + phase) * 0.35,
+    point.x + Math.sin(t * 0.6 + phase) * 0.16,
     0,
-    player.position.z + behindZ * 1.4 + sideZ * side * 0.85 + Math.cos(t * 0.33 + phase) * 0.35
+    point.z + Math.cos(t * 0.5 + phase) * 0.16
   );
   const toDesired = desired.clone().sub(cat.position);
   const distance = toDesired.length();
 
   ud.stateT += dt;
-  if (playerMoving || distance > 2.2) {
+  if (playerMoving || distance > 1.3) {
     ud.state = "follow";
     ud.stateT = 0;
   } else if (ud.state === "follow" && ud.stateT > ud.nextIdleAt) {
@@ -1799,35 +1858,38 @@ function updateCat(cat, t, dt, playerMoving, side, phase) {
     ud.stateT = 0;
   }
 
-  if (ud.state === "follow" && distance > 0.12) {
-    cat.position.lerp(desired, playerMoving ? 0.05 : 0.03);
-    if (toDesired.lengthSq() > 0.0001) {
+  if (ud.state === "follow" && distance > 0.06) {
+    cat.position.lerp(desired, 1 - Math.pow(0.0006, dt));
+    if (toDesired.lengthSq() > 0.0004) {
       const targetAngle = Math.atan2(toDesired.x, toDesired.z);
       const delta = Math.atan2(Math.sin(targetAngle - cat.rotation.y), Math.cos(targetAngle - cat.rotation.y));
-      cat.rotation.y += delta * 0.12;
+      cat.rotation.y += delta * Math.min(1, dt * 7);
     }
     const gait = t * 9 + phase;
     cat.position.y = Math.abs(Math.sin(gait)) * 0.045;
     ud.legs.forEach((leg, i) => {
       leg.rotation.x = Math.sin(gait + (i % 2 === 0 ? 0 : Math.PI)) * 0.5;
     });
-    ud.tail.rotation.y = Math.sin(t * 3 + phase) * 0.25;
+    ud.tailBase.rotation.x = Math.sin(t * 3 + phase) * 0.2;
+    ud.tailTip.rotation.x = Math.sin(t * 3 + phase + 0.6) * 0.3;
   } else if (ud.state === "sit") {
     cat.position.y += (-0.05 - cat.position.y) * 0.08;
     ud.legs.forEach(leg => { leg.rotation.x += (0 - leg.rotation.x) * 0.1; });
-    ud.tail.rotation.y = Math.sin(t * 1.2 + phase) * 0.35;
+    ud.tailBase.rotation.x = Math.sin(t * 1.2 + phase) * 0.15;
+    ud.tailTip.rotation.x = Math.sin(t * 1.2 + phase + 0.5) * 0.2;
   } else {
     const sniff = new THREE.Vector3(
-      cat.position.x + Math.sin(t * 0.9 + phase) * 0.5,
+      point.x + Math.sin(t * 0.9 + phase) * 0.45,
       0,
-      cat.position.z + Math.cos(t * 0.7 + phase) * 0.5
+      point.z + Math.cos(t * 0.7 + phase) * 0.45
     );
-    cat.position.lerp(sniff, 0.01);
+    cat.position.lerp(sniff, 0.02);
     cat.position.y = Math.abs(Math.sin(t * 6 + phase)) * 0.03;
     ud.legs.forEach((leg, i) => {
       leg.rotation.x = Math.sin(t * 6 + phase + (i % 2 === 0 ? 0 : Math.PI)) * 0.25;
     });
-    ud.tail.rotation.y = Math.sin(t * 4 + phase) * 0.4;
+    ud.tailBase.rotation.x = Math.sin(t * 4 + phase) * 0.3;
+    ud.tailTip.rotation.x = Math.sin(t * 4 + phase + 0.6) * 0.4;
   }
 }
 
