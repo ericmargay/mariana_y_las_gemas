@@ -6,7 +6,7 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.m
 const CONFIG = {
   sobrina: "Marianita",
   firma: "Con todo mi cariño, tu tío",
-  soundtrackFile: "soundtrack.mp3",
+  soundtrackFile: "assets/soundtrack2.mp3",
   gemSoundFiles: ["gema1.mp3", "gema2.mp3", "gema3.mp3", "gema4.mp3"],
   finalGemSoundFile: "gema5.mp3",
   tituloFinal: "Feliz cumpleaños número 11, Marianita",
@@ -1861,20 +1861,23 @@ function updateCat(cat, t, dt, playerMoving, trailOffset, phase) {
   if (ud.state === "follow" && distance > 0.06) {
     cat.position.lerp(desired, 1 - Math.pow(0.0006, dt));
     if (toDesired.lengthSq() > 0.0004) {
-      const targetAngle = Math.atan2(toDesired.x, toDesired.z);
+      // El cuerpo del gato está modelado mirando hacia +X (no +Z como el
+      // personaje), por eso el ángulo se calcula distinto para que la
+      // cabeza y las patas apunten realmente hacia donde camina.
+      const targetAngle = Math.atan2(-toDesired.z, toDesired.x);
       const delta = Math.atan2(Math.sin(targetAngle - cat.rotation.y), Math.cos(targetAngle - cat.rotation.y));
       cat.rotation.y += delta * Math.min(1, dt * 7);
     }
     const gait = t * 9 + phase;
     cat.position.y = Math.abs(Math.sin(gait)) * 0.045;
     ud.legs.forEach((leg, i) => {
-      leg.rotation.x = Math.sin(gait + (i % 2 === 0 ? 0 : Math.PI)) * 0.5;
+      leg.rotation.z = Math.sin(gait + (i % 2 === 0 ? 0 : Math.PI)) * 0.5;
     });
     ud.tailBase.rotation.x = Math.sin(t * 3 + phase) * 0.2;
     ud.tailTip.rotation.x = Math.sin(t * 3 + phase + 0.6) * 0.3;
   } else if (ud.state === "sit") {
     cat.position.y += (-0.05 - cat.position.y) * 0.08;
-    ud.legs.forEach(leg => { leg.rotation.x += (0 - leg.rotation.x) * 0.1; });
+    ud.legs.forEach(leg => { leg.rotation.z += (0 - leg.rotation.z) * 0.1; });
     ud.tailBase.rotation.x = Math.sin(t * 1.2 + phase) * 0.15;
     ud.tailTip.rotation.x = Math.sin(t * 1.2 + phase + 0.5) * 0.2;
   } else {
@@ -1886,7 +1889,7 @@ function updateCat(cat, t, dt, playerMoving, trailOffset, phase) {
     cat.position.lerp(sniff, 0.02);
     cat.position.y = Math.abs(Math.sin(t * 6 + phase)) * 0.03;
     ud.legs.forEach((leg, i) => {
-      leg.rotation.x = Math.sin(t * 6 + phase + (i % 2 === 0 ? 0 : Math.PI)) * 0.25;
+      leg.rotation.z = Math.sin(t * 6 + phase + (i % 2 === 0 ? 0 : Math.PI)) * 0.25;
     });
     ud.tailBase.rotation.x = Math.sin(t * 4 + phase) * 0.3;
     ud.tailTip.rotation.x = Math.sin(t * 4 + phase + 0.6) * 0.4;

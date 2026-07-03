@@ -1,94 +1,39 @@
-# La aventura de las gemas
+# La aventura de las gemas de Marianita
 
-Felicitación interactiva de cumpleaños hecha con Three.js, pensada para una sobrina de 9 años.
+*Una felicitación de cumpleaños escondida dentro de un pequeño reino del bosque.*
 
-La experiencia tiene:
+---
 
-- Inicio con botón de estrella para activar el soundtrack.
-- Mensaje inicial con una estrellita que emite luz en fade.
-- Escenario 3D original de fantasía clásica: bosque, ruinas, camino, nubes, animalitos, flores, hongos, lago y gemas escondidas.
-- 9 gemas con colores aleatorios, luz pulsante y acertijos distintos.
-- Mensajes desbloqueables de cumpleaños, vida, curiosidad, valentía y amor.
-- Mensaje final sorpresa al resolver las 9 gemas.
-- Controles por teclado, botones móviles y exploración táctil arrastrando el dedo sobre la pantalla.
+Esto no es solo un proyecto de código: es un regalo. Una aventura en 3D hecha con cariño para celebrar los 11 años de Marianita.
 
-## Soundtrack
+En el bosque hay 11 gemas escondidas entre árboles, ruinas, un lago y un templo antiguo. Cada una guarda un acertijo, y al resolverlo se revela un pedacito de algo más grande — un mensaje que solo se completa cuando las once ya brillan.
 
-Coloca tu archivo de música en la raíz del proyecto con este nombre:
+Cada gema representa una pequeña luz distinta:
 
-```text
-soundtrack.mp3
-```
+- ✦ El primer paso
+- ✦ La imaginación
+- ✦ El número mágico
+- ✦ La valentía
+- ✦ La gratitud
+- ✦ La risa escondida
+- ✦ Las preguntas
+- ✦ La bondad
+- ✦ El patrón secreto
+- ✦ La perseverancia
+- ✦ Tu propia luz
 
-La música empieza cuando se toca el botón de estrella inicial. Esto es necesario porque los navegadores suelen bloquear audio automático hasta que la persona interactúa con la página.
+Esta última, la que guarda la luz propia de Marianita, descansa en el centro del bosque — protegida por piedras antiguas que solo se apartan cuando las otras diez ya fueron encontradas.
 
-Si quieres usar otro nombre de archivo, edita `CONFIG.soundtrackFile` dentro de `main.js`.
+## El mensaje final
 
-## Sonidos al desbloquear una gema
+> Marianita, el secreto final no estaba dentro de una gema ni debajo de una piedra antigua.
+>
+> El secreto era que cada gema estaba formando un espejo: la imaginación, la curiosidad, la valentía, la risa, la calma, la gratitud, la bondad, los sueños, la inteligencia, la perseverancia y el amor ya viven en ti.
+>
+> Hoy el reino del bosque no te entregó poderes. Solo te recordó algo que tu tío ya sabía: tú eres una aventura completa, una historia brillante y una persona capaz de iluminar lugares que todavía no conoces.
+>
+> Que tus 11 años sean el comienzo de una etapa donde preguntes mucho, sueñes fuerte, cuides tu corazón y nunca olvides que ser tú misma es una magia enorme.
+>
+> Feliz cumpleaños, Marianita. El mapa más importante no estaba en la pantalla: está en la forma hermosa en la que vas creciendo.
 
-Coloca hasta 4 archivos de sonido cortos en la raíz del proyecto con estos nombres:
-
-```text
-gema1.mp3
-gema2.mp3
-gema3.mp3
-gema4.mp3
-```
-
-Cada vez que se desbloquea una de las primeras 10 gemas, el juego elige uno al azar y lo reproduce sin interrumpir el soundtrack. Si un archivo no existe, simplemente no suena (no rompe el juego). Puedes cambiar los nombres editando `CONFIG.gemSoundFiles` dentro de `main.js`.
-
-La última gema (la del centro del bosque) tiene su propio sonido especial:
-
-```text
-gema5.mp3
-```
-
-Se puede cambiar editando `CONFIG.finalGemSoundFile`.
-
-## Cómo probar localmente
-
-Abre la carpeta con VS Code y usa Live Server, o ejecuta:
-
-```bash
-python -m http.server 8080
-```
-
-Luego abre:
-
-```text
-http://localhost:8080
-```
-
-## Cómo subir a GitHub Pages
-
-1. Crea un repositorio, por ejemplo `cumple-9-gemas`.
-2. Sube estos archivos a la raíz del repositorio:
-   - `index.html`
-   - `style.css`
-   - `main.js`
-   - `.nojekyll`
-   - `soundtrack.mp3`, si ya tienes la música
-3. En GitHub: Settings → Pages.
-4. Source: Deploy from a branch.
-5. Branch: `main` / `/root`.
-6. Guarda y espera a que GitHub genere el link.
-
-## Personalización rápida
-
-Edita el bloque `CONFIG` dentro de `main.js`:
-
-```js
-const CONFIG = {
-  sobrina: "mi pequeña aventurera",
-  firma: "Con todo mi cariño, tu tío",
-  soundtrackFile: "soundtrack.mp3",
-  tituloFinal: "Feliz cumpleaños número 9",
-  mensajeFinal: [...]
-};
-```
-
-También puedes editar cada gema dentro del arreglo `GEMAS` para cambiar posiciones, acertijos y mensajes.
-
-## Nota creativa
-
-La escena está inspirada en aventuras clásicas de fantasía y exploración en bosque. No usa assets, música, nombres, personajes ni elementos oficiales de ninguna franquicia.
+**Con todo mi cariño, tu tío.**
